@@ -1,0 +1,24 @@
+#nav-map-btn {
+  margin: auto 18% auto 0px;
+  height: 90%;
+  width: 200px;
+
+}
+
+#map-thumb {
+  width: 200px;
+  height: 80%;
+  border-radius: 3px 3px 0px 0px;
+}
+
+#nav-btn {
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 11pt;
+  background-color: #0B76B7;
+  border: 1px solid #0B76B7;
+  border-radius: 0px 0px 3px 3px;
+  width: 200px;
+  height: 28px;
+}
+

@@ -1,0 +1,8 @@
+.caret {  
+  display: block;
+  order: 2;
+  position: relative;
+  z-index: 10;
+  right: 20px;
+  top: 3px;
+}
