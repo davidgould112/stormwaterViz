@@ -5,7 +5,7 @@ import { LatLngTuple, LocationEvent } from 'leaflet';
 import { Map, TileLayer } from 'react-leaflet'
 
 const defaultLatLng: LatLngTuple = [45.599870, -119.536093];
-const zoom: number = 5;
+const zoom: number = 6;
 
 interface MapProps {
   clickHandler: (e: LocationEvent, feature: any) => void;
