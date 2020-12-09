@@ -5,15 +5,15 @@ import { LatLngTuple, LocationEvent } from 'leaflet';
 import { Map, TileLayer } from 'react-leaflet'
 
 const defaultLatLng: LatLngTuple = [45.599870, -119.536093];
-const zoom: number = 7;
+const zoom: number = 5;
 
 interface MapProps {
   clickHandler: (e: LocationEvent, feature: any) => void;
-  gridCell: LatLngTuple;
+  selectedGridCell: LatLngTuple;
   mapRendered: boolean;
 }
 
-const LeafletMap: React.FC<MapProps> = ({ clickHandler, gridCell, mapRendered}) => {
+const LeafletMap: React.FC<MapProps> = ({ clickHandler, selectedGridCell, mapRendered}) => {
 
 
       return (
@@ -25,7 +25,7 @@ const LeafletMap: React.FC<MapProps> = ({ clickHandler, gridCell, mapRendered}) 
             url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
           >
           </TileLayer>
-          <Grid gridCell={gridCell} clickHandler={clickHandler} mapRendered={mapRendered}/>
+          <Grid selectedGridCell={selectedGridCell} clickHandler={clickHandler} mapRendered={mapRendered}/>
         </Map>
       );
     

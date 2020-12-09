@@ -1,4 +1,4 @@
-export default interface GridCell {
+export default interface selectedGridCell {
   lat: number;
   lng: number;
 };

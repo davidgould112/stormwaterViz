@@ -5,16 +5,16 @@ import { Map, TileLayer } from 'react-leaflet';
 import { LatLngTuple } from 'leaflet';
 
 interface MapBtnProps {
-  gridCell: LatLngTuple;
+  selectedGridCell: LatLngTuple;
   clickHandler: (event: any) => void;
   mapRendered: boolean;
 }
 
-const NavMapBtn: React.FC<MapBtnProps> = ({ gridCell, clickHandler, mapRendered }) => {
+const NavMapBtn: React.FC<MapBtnProps> = ({ selectedGridCell, clickHandler, mapRendered }) => {
   return (
     <div id="nav-map-btn" onClick={clickHandler}>
       <Map id="map-thumb"
-        center={gridCell}
+        center={selectedGridCell}
         zoom={8}
         zoomControl={false}
       >
@@ -22,7 +22,7 @@ const NavMapBtn: React.FC<MapBtnProps> = ({ gridCell, clickHandler, mapRendered 
           url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
         >
         </TileLayer>
-        <Grid gridCell={gridCell} mapRendered={mapRendered}/>
+        <Grid selectedGridCell={selectedGridCell} mapRendered={mapRendered}/>
       </Map>
       <button id="nav-btn">Choose a Different Cell</button>
     </div>

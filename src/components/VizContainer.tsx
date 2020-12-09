@@ -5,9 +5,9 @@ import VizSelectors from './VizSelectors';
 import { LatLngTuple } from 'leaflet';
 
 interface VizProps {
-  gridCell: LatLngTuple;
-
+  selectedGridCell: LatLngTuple;
 }
+
 type VizState = {
   xAxisParam: string;
   returnInt: number;
