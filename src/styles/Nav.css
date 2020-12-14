@@ -8,7 +8,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  min-height: 160px;
+  min-height: 140px;
 }
 
 #nav-text {

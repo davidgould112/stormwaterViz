@@ -40,9 +40,17 @@ class VizContainer extends React.Component<VizProps, VizState> {
       },
       title: {
         text: 'Duration Projections for 25-year Event in Decade 2050', //changed by radio and menu
-       style: {
+        style: {
           color: 'black',
           fontSize: '20px'
+        }
+      },
+      subtitle: {
+        text: 'Click and Drag Over Points to Zoom In',
+        style: {
+          color: '#0B76B7',
+          fontSize: '12px',
+          align: 'right'
         }
       },
       xAxis: {
@@ -80,13 +88,12 @@ class VizContainer extends React.Component<VizProps, VizState> {
       legend: {
         layout: 'vertical',
         align: 'right',
-        verticalAlign: 'bottom',
-        x: 100,
-        y: 70,
+        verticalAlign: 'top',
+        x: 10,
+        y: 80,
         floating: true,
         backgroundColor: '#FFFFFF',
         borderWidth: 1,
-        marginRight: 10
       },
       plotOptions: {
         scatter: {
