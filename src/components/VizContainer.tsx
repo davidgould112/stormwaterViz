@@ -90,7 +90,7 @@ class VizContainer extends React.Component<VizProps, VizState> {
         align: 'right',
         verticalAlign: 'top',
         x: 10,
-        y: 80,
+        y: 90,
         floating: true,
         backgroundColor: '#FFFFFF',
         borderWidth: 1,
