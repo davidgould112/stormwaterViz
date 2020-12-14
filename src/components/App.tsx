@@ -17,19 +17,9 @@ class App extends React.Component<any, AppState> {
     selectedGridCell: [0,0],
     mapRendered: true
   };
-
-  componentDidMount () {
-    const filePath = 'http://thredds.northwestknowledge.net:8080/thredds/catalog/CBI_MC2_VEGETATION_DATA/TEMP/CanESM2/catalog.html?dataset=CBI_MC2_VEGETATION_ALL_SCAN/TEMP/CanESM2/mc2_WithFireSuppression_VTYPE_CanESM2_r1i1p1_rcp45_2015_2099_CONUS_year.nc';
-    fetch(`${filePath}`)
-    .then(response => response.body)
-    .then((body: any) => {
-      const reader = body.getReader()
-      console.log("reader :  ", reader)
-    });
-  }
   
   mapClick(e: LocationEvent, feature: any): void {
-    this.setState({selectedGridCell: [feature.geometry.coordinates[0][0][1],feature.geometry.coordinates[0][0][0]], mapRendered: false}, () => {console.log("ya:  ", this.state.selectedGridCell)});
+    this.setState({selectedGridCell: [feature.geometry.coordinates[0][0][1],feature.geometry.coordinates[0][0][0]], mapRendered: false}, () => {console.log("selectedGridCell:  ", this.state.selectedGridCell)});
   }
 
   navBtnClick(event: any): void {

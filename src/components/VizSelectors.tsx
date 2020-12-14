@@ -1,12 +1,18 @@
 import React from 'react'
 import "../styles/VizSelectors.css"
 import Caret from "./Caret"
+import { CSVLink } from "react-csv";
+import { LatLngTuple } from 'leaflet';
+
+ 
 
 type SelectorProps = {
   xAxisParam: string;
   returnInt: number;
-  decade: number;
+  decade: string;
   duration: number;
+  csvData: any[];
+  gridLatLong: LatLngTuple;
   xAxisToggle: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleReturnIntChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   handleDurationChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
@@ -17,10 +23,14 @@ const VizSelectors: React.FC<SelectorProps> = ({duration,
                                                 returnInt, 
                                                 decade, 
                                                 xAxisParam, 
+                                                csvData,
+                                                gridLatLong,
                                                 xAxisToggle, 
                                                 handleReturnIntChange, 
                                                 handleDurationChange, 
                                                 handleDecadeChange }) => {
+                                  
+  const fileName = `lat${gridLatLong[0]}_lon${gridLatLong[1]}.csv`                                                
   return (
     <div id="viz-select">
       <div id="radios">
@@ -90,8 +100,12 @@ const VizSelectors: React.FC<SelectorProps> = ({duration,
             <Caret/>
           </div>
         </div>
+        <CSVLink id="button-link" data={csvData} filename={fileName}>
+          <button id="grid-data-btn">
+            Download Grid Cell Data
+          </button>
+        </CSVLink>
       </div>
-      <button id="grid-data-btn">Download Grid Cell Data</button>
     </div>
   )
 }

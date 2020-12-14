@@ -1,2 +1,2 @@
 /// <reference types="react-scripts" />
-declare module 'netcdfjs'
+declare module 'react-csv'
