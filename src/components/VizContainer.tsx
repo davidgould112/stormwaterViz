@@ -4,10 +4,10 @@ import '../styles/VizContainer.css';
 import VizFigure from './VizFigure';
 import VizSelectors from './VizSelectors';
 import jsonToCSV from '../utils/csvGenerator';
-import { LatLngTuple } from 'leaflet';
+import GridCell from '../types/GridCell'
 
 interface VizProps {
-  selectedGridCell: LatLngTuple;
+  selectedGridCell: GridCell;
 }
 
 type VizState = {
@@ -45,14 +45,6 @@ class VizContainer extends React.Component<VizProps, VizState> {
           fontSize: '20px'
         }
       },
-      subtitle: {
-        text: 'Click and Drag Over Points to Zoom In',
-        style: {
-          color: '#0B76B7',
-          fontSize: '12px',
-          align: 'right'
-        }
-      },
       xAxis: {
         categories: ['1', '2', '6', '24', '72'], // changed by radio
         title: {
@@ -87,10 +79,10 @@ class VizContainer extends React.Component<VizProps, VizState> {
       },
       legend: {
         layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'top',
-        x: 10,
-        y: 90,
+        align: 'left',
+        verticalAlign: 'bottom',
+        x: 50,
+        y: 50,
         floating: true,
         backgroundColor: '#FFFFFF',
         borderWidth: 1,
@@ -98,7 +90,7 @@ class VizContainer extends React.Component<VizProps, VizState> {
       plotOptions: {
         scatter: {
           marker: {
-            radius: 5,
+             radius: 5,
             states: {
               hover: {
                 enabled: true,
@@ -331,7 +323,7 @@ class VizContainer extends React.Component<VizProps, VizState> {
     return(
       <div id="viz-container">
         <VizSelectors 
-          gridLatLong={this.props.selectedGridCell}
+          gridCell={this.props.selectedGridCell}
           xAxisParam={this.state.xAxisParam}
           duration={this.state.duration}
           returnInt={this.state.returnInt}

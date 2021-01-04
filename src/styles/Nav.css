@@ -8,7 +8,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  min-height: 140px;
+  min-height: 150px;
 }
 
 #nav-text {
@@ -23,12 +23,33 @@
   width: 70%;
 }
 
-#nav-subtitle {
-  margin-left: 7%;
+#nav-subtitle-map {
   color: #0B76B7;
-  font-size: 16px;
+  margin: 20px 0px 0px 7%;
+  font-size: 14pt;
+  font-weight: bolder;
+  line-height: 28px;
+  width: 500px;
+}
+
+#nav-subtitle-container {
+  margin-left: 7%;
   font-weight: bolder;
   line-height: 22px;
-  width: 360px;
-  text-overflow: wrap;
+  width: 460px;
+
 }
+
+#nav-subtitle-base {
+  color: #757575;
+  display: inline-block;
+  font-size: 10pt;
+}
+
+#nav-subtitle-dynamic {
+  color:#0B76B7;
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 11pt;
+}
+

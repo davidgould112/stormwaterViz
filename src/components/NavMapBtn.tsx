@@ -1,30 +1,30 @@
-import React from 'react';
-import Grid from './Grid';
 import '../styles/NavMapBtn.css';
-import { Map, TileLayer } from 'react-leaflet';
-import { LatLngTuple } from 'leaflet';
+import React from 'react';
+import LeafletMap from './Map'
+import { LeafletEvent } from 'leaflet';
+import GridCell from '../types/GridCell'
 
 interface MapBtnProps {
-  selectedGridCell: LatLngTuple;
-  clickHandler: (event: any) => void;
-  mapRendered: boolean;
+  selectedGridCell: GridCell;
+  buttonClickHandler: (event: any) => void;
+  mapClickHandler: (e: LeafletEvent, feature: any, mapZoom: number) => void;
 }
 
-const NavMapBtn: React.FC<MapBtnProps> = ({ selectedGridCell, clickHandler, mapRendered }) => {
+const NavMapBtn: React.FC<MapBtnProps> = ({ selectedGridCell, buttonClickHandler, mapClickHandler }) => {
+
   return (
-    <div id="nav-map-btn" onClick={clickHandler}>
-      <Map id="map-thumb"
-        center={selectedGridCell}
-        zoom={8}
-        zoomControl={false}
-      >
-        <TileLayer
-          url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
-        >
-        </TileLayer>
-        <Grid selectedGridCell={selectedGridCell} mapRendered={mapRendered}/>
-      </Map>
-      <button id="nav-btn">Choose a Different Cell</button>
+    <div id="nav-map">
+      <div id="map-thumb">
+        <LeafletMap 
+          selectedGridCell={selectedGridCell}
+          center={[selectedGridCell.Center_Lat + 0.23, selectedGridCell.Center_Lon]}
+          zoom={8}
+          clickHandler={mapClickHandler}
+          zoomControl={true}
+        />
+        <div id="nav-map-text">Click to select new cell, Click and drag to pan</div>
+      </div>
+      <button id="nav-btn" onClick={buttonClickHandler}>Return to Map</button>
     </div>
   )
 };

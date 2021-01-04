@@ -1,37 +1,40 @@
 import React from 'react';
-import Grid from './Grid'
+import ShapeGrid from './ShapeGrid'
 import '../styles/Map.css';
-import { LatLngTuple, LocationEvent } from 'leaflet';
+import { LeafletEvent, LatLngTuple } from 'leaflet';
 import { Map, TileLayer } from 'react-leaflet'
+import SelectedGridCell from '../types/GridCell'
 
-const defaultLatLng: LatLngTuple = [45.599870, -119.536093];
-const zoom: number = 6;
 
 interface MapProps {
-  clickHandler: (e: LocationEvent, feature: any) => void;
-  selectedGridCell: LatLngTuple;
-  mapRendered: boolean;
+  selectedGridCell: SelectedGridCell;
+  center: LatLngTuple
+  zoom: number;
+  zoomControl: boolean;
+  clickHandler: (e: LeafletEvent, feature: any, mapZoom: number) => void;
 }
 
-const LeafletMap: React.FC<MapProps> = ({ clickHandler, selectedGridCell, mapRendered}) => {
+const LeafletMap: React.FC<MapProps> = ({ selectedGridCell, 
+                                          center,
+                                          zoom, 
+                                          zoomControl, 
+                                          clickHandler }) => {
 
-
-      return (
-        <Map id="map-container"
-        center={defaultLatLng}
-        zoom={zoom}
-        >
-          <TileLayer
-            url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
-          >
-          </TileLayer>
-          <Grid selectedGridCell={selectedGridCell} clickHandler={clickHandler} mapRendered={mapRendered}/>
-        </Map>
-      );
+  return (
+    <Map 
+      id="map-container" 
+      center={center}
+      zoom={zoom} 
+      zoomControl={zoomControl} 
+    >
+      <TileLayer
+        url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
+      >
+      </TileLayer>
+      <ShapeGrid clickHandler={clickHandler} selectedGridCell={selectedGridCell}/>
+    </Map>
+  );
     
-  }
-  
-  
-
+}
 
 export default LeafletMap;

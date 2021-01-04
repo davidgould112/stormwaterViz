@@ -2,8 +2,7 @@ import React from 'react'
 import "../styles/VizSelectors.css"
 import Caret from "./Caret"
 import { CSVLink } from "react-csv";
-import { LatLngTuple } from 'leaflet';
-
+import GridCell from '../types/GridCell'
  
 
 type SelectorProps = {
@@ -12,7 +11,7 @@ type SelectorProps = {
   decade: string;
   duration: number;
   csvData: any[];
-  gridLatLong: LatLngTuple;
+  gridCell: GridCell ;
   xAxisToggle: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleReturnIntChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   handleDurationChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
@@ -24,13 +23,13 @@ const VizSelectors: React.FC<SelectorProps> = ({duration,
                                                 decade, 
                                                 xAxisParam, 
                                                 csvData,
-                                                gridLatLong,
+                                                gridCell,
                                                 xAxisToggle, 
                                                 handleReturnIntChange, 
                                                 handleDurationChange, 
                                                 handleDecadeChange }) => {
                                   
-  const fileName = `lat${gridLatLong[0]}_lon${gridLatLong[1]}.csv`                                                
+  const fileName = `lat${gridCell.Center_Lat}_lon${gridCell.Center_Lon}.csv`                                                
   return (
     <div id="viz-select">
       <div id="radios">

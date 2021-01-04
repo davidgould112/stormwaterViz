@@ -14,19 +14,19 @@ const jsonToCSV: any = (gridJSON: any) => {
     "Return Interval(years)",
     "Duration(hours)",
     "Time Period",
-    "access1.0",
-    "access1.3",
-    "bcc-csm1.1",
-    "canesm2",
-    "ccsm4",
-    "csiro-mk3.6.0",
-    "ensemble",
-    "fgoals-g2",
-    "gfdl-cm3",
-    "giss-e2-h",
-    "miroc5",
-    "mri-cgcm3",
-    "noresm1-m",
+    "access1.0_RCP8.5",
+    "access1.3_RCP8.5",
+    "bcc-csm1.1_RCP8.5",
+    "canesm2_RCP8.5",
+    "ccsm4_RCP8.5",
+    "csiro-mk3.6.0_RCP8.5",
+    "ensemble_RCP8.5",
+    "fgoals-g2_RCP8.5",
+    "gfdl-cm3_RCP8.5",
+    "giss-e2-h_RCP8.5",
+    "miroc5_RCP8.5",
+    "mri-cgcm3_RCP8.5",
+    "noresm1-m_RCP8.5",
     "Median",
     "Max",
     "Min"
@@ -82,7 +82,7 @@ const addModelColumns: any = (arr: number[], JSON: any) => {
 const addMathColumns: any = (arr: number[]) => {
   let dataArr: number [] = arr.slice(3);
   dataArr.sort((a, b) => a - b)
-  // with 13 GCMS, the sorted arr has mediam at index-6, max at index-12, min at index-0
+  // with 13 GCM's, the sorted arr has mediam at index-6, max at index-12, min at index-0
   arr.push(dataArr[6])
   arr.push(dataArr[12])
   arr.push(dataArr[0])

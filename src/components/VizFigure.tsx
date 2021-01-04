@@ -26,10 +26,9 @@ const VizFigure: React.FC<VizFigProps> = ({ vizConfig }) => {
   
   return (
     <div id="fig-container">
-      <div id="viz-fig">
-        {/* <ReactHighcharts config={vizConfig}> </ReactHighcharts> */}
-        <HighchartsReact ref={chart} updateArgs={[true]} highcharts={Highcharts} options={vizConfig}></HighchartsReact>
-      </div>
+      {/* <div id="viz-fig"> */}
+        <HighchartsReact id="viz-fig" ref={chart} updateArgs={[true]} highcharts={Highcharts} options={vizConfig}></HighchartsReact>
+      {/* </div> */}
       <div id="btn-row">
         <button onClick={downloadImage} id="fig-btn">Download Figure</button>
         <button onClick={downloadCSV} id="data-btn">Download Chart Data</button>

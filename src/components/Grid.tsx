@@ -72,7 +72,6 @@ const Grid: React.FC<GridProps> = ({ selectedGridCell, clickHandler, mapRendered
  
     if (mapRendered) {
       layer.on('click', function(ev: any) {
-        console.log("E and F: ", ev, feature)
         clickHandler(ev, feature);
       });
       layer.on('mouseover', function () {
@@ -90,7 +89,6 @@ const Grid: React.FC<GridProps> = ({ selectedGridCell, clickHandler, mapRendered
     units: 'kilometers',
   };
   const sqGrid = squareGrid(bbox, cellSide, sqGridOptions);
-  console.log("square grid: ", sqGrid);
 
   const gridGeoJSON = L.geoJSON(sqGrid, {
     style: function(feature:any) {
@@ -108,35 +106,4 @@ const Grid: React.FC<GridProps> = ({ selectedGridCell, clickHandler, mapRendered
 export default Grid;
 
 
-  // L.GridLayer.extend({
-  //   createTile: function(coords){
-      
-  //     // create a <canvas> element for drawing
-  //     var tile = L.DomUtil.create('canvas', 'leaflet-tile');
-
-  //     // setup tile width and height according to the options
-  //     var size = this.getTileSize();
-  //     tile.width = size.x;
-  //     tile.height = size.y;
-      
-  //     var ctx = tile.getContext('2d');
-  //     ctx.strokeStyle = 'red';
-  //     ctx.stroke();
-
-  //     return tile;
-  //   }
-  // });
-  // let options = {
-  //   tileSize: 300,
-  //   opacity: 15,
-  //   bounds: L.latLngBounds([-131.3447, 40], [-119.14511, 49])
-  // }
-  // let gridLayer: any = new L.GridLayer(options);
-  // gridLayer.createTile([3, 3, 99], () => {console.log("TILE")});
-  // console.log("GL : ", gridLayer)
-  // gridLayer.addTo(lContext.map)
-
- // let bbox, cellSide, sqGridOptions, sqGrid, gridGeoJSON
-
-  // for(let i = 45; i < 48; i++) {
-  //   for(let j = 33; j < 36; j++) {
+  
