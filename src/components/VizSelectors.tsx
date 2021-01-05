@@ -169,7 +169,7 @@ const VizSelectors: React.FC<SelectorProps> = ({duration,
         }
       })()
       }
-      <CSVLink data={csvData} filename={fileName}>
+      <CSVLink id="grid-btn-wrapper" data={csvData} filename={fileName}>
         <button id="grid-data-btn">
           Download Grid Cell Data
         </button>

@@ -1,18 +1,19 @@
 #nav-map {
-  margin: auto 3% auto 0px;
-  min-height: 200px;
+  margin: 0px 3% 0px 0px;
   width: 40%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-
+  height: 90%;
 }
 
 #map-thumb {
   width: 75%;
-  height: 160px;
-  margin-top: 6px;
+  height: 90%;
+  min-height: 120px;
+  max-height: 160px;
+  margin-top: 2%;
   align-self: flex-start;
   border-radius: 3px 3px 0px 0px;
 }
@@ -25,13 +26,34 @@
 }
 
 #nav-btn {
-  color: #ffffff;
+  color: #7fabed;
   font-weight: bold;
   font-size: 14pt;
-  background-color: #0B76B7;
-  border: 1px solid #0B76B7;
+  background-color: rgb(209, 214, 218);
+  border: 3px solid #0B76B7;
   border-radius: 2px;
-  height: 70px;
+  height: 100px;
+  width:100px;
   margin-left: 20px;
+  margin-top: 3.5%;
+  align-self: flex-start;
 }
 
+@media only screen and (min-width: 1300px) {
+  #map-thumb {
+    max-width: 300px;
+  }
+  #nav-map{
+    margin: auto 4% auto 0px;
+  }
+}
+
+@media only screen and (max-width: 1300px) {
+  #nav-map {
+    margin: 0% 3% auto 0px;
+    max-width: 40%;
+  }
+  #map-thumb {
+    max-width: 220px;
+  }
+}

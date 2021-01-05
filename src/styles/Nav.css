@@ -1,6 +1,8 @@
 #nav-container {
   width: 100%;
-  height: 25%;
+  height: 22%;
+  max-height: 200px;
+  min-height: 165px;
   border: 3px solid #c4c4c4;
   border-radius: 4px 4px 0px 0px; 
   background-color: #E5E5E5;
@@ -8,11 +10,10 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  min-height: 150px;
 }
 
 #nav-text {
-  width: 67%
+  width: 60%
 }
 
 #nav-title {
@@ -20,7 +21,7 @@
   color: #757575;
   font-size: 24px;
   font-weight: bold;
-  width: 70%;
+  width: 95%;
 }
 
 #nav-subtitle-map {
@@ -53,3 +54,8 @@
   font-size: 11pt;
 }
 
+@media only screen and (max-width: 900px) {
+  #nav-text {
+    width: 50%
+  }
+}

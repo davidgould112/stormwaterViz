@@ -24,7 +24,9 @@ const NavMapBtn: React.FC<MapBtnProps> = ({ selectedGridCell, buttonClickHandler
         />
         <div id="nav-map-text">Click to select new cell, Click and drag to pan</div>
       </div>
-      <button id="nav-btn" onClick={buttonClickHandler}>Return to Map</button>
+      <button id="nav-btn" onClick={buttonClickHandler}>
+        Return to Map
+      </button>
     </div>
   )
 };

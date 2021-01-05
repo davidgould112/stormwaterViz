@@ -70,6 +70,11 @@ class VizContainer extends React.Component<VizProps, VizState> {
             fontSize: '16px'
           }
         },
+        plotLines: [{
+          color: '#C0C0C0',
+          width: 2,
+          value: 0
+        }],
         labels: {
           style: {
             color: 'black',
@@ -79,10 +84,10 @@ class VizContainer extends React.Component<VizProps, VizState> {
       },
       legend: {
         layout: 'vertical',
-        align: 'left',
+        align: 'right',
         verticalAlign: 'bottom',
-        x: 50,
-        y: 50,
+        x: -12,
+        y: -52,
         floating: true,
         backgroundColor: '#FFFFFF',
         borderWidth: 1,
@@ -106,12 +111,7 @@ class VizContainer extends React.Component<VizProps, VizState> {
             }
           },
           tooltip: {
-            headerFormat: '',
-            pointFormat: '<span>{point.explanation}</span>', 
-            style: {
-              whiteSpace: "normal",
-              width: 70
-            }
+            pointFormat:'<span>Projected Change: {point.y} %</span><br/><span>Global Climate Model: {point.gcm}</span><br/><span>Greenhouse Gas Scenario: RCP 8.5 (High)</span><br/><span>Duration: {point.duration}</span><br/><span>Return Invterval: {point.returnInt}</span><br/><span>Time Period: {point.decade} relative to 1981-2009</span>'
           }
         }
       },
@@ -182,13 +182,7 @@ class VizContainer extends React.Component<VizProps, VizState> {
       3: [],
       4: []
     }
-    
-    // example data point {
-      //     x: duration,
-      //     y: projected % change val,
-      //     explanation: "At this site, the 25-year recurrence interval, 1-hour design storm is projected to change by X% by the 2080s (relative to 1970-1999), under a high greenhouse gas scenario (RCP 8.5)",
-      // }
-      
+  
     if (chartType === "duration") {
       //choose all projection values for all durations given a return-interval filterValue
       for (const gcmKey in decadeData) {
@@ -199,12 +193,14 @@ class VizContainer extends React.Component<VizProps, VizState> {
           const returnIntKey: string = `${filterValue}-yr`
           const projectionVal: number = Number(durDataObj[returnIntKey].toFixed(2));
           const durStr: string = durKey.substring(0, durKey.length-3);
-          const explanationStr = `At this site, the ${filterValue}-year recurrence interval, ${durStr}-hour design storm is projected to change by ${projectionVal}% by the ${decade}s (relative to 1970-1999) under a high greenhouse gas scenario (RCP 8.5)`
           
           const chartPoint : any = {
             x: durArrValues.indexOf(Number(durStr)),
             y: projectionVal,
-            explanation: explanationStr
+            duration: durKey,
+            returnInt: returnIntKey,
+            gcm: gcmKey.slice(0, gcmKey.length-13),
+            decade: `${decade} (${decadeStrMap[decade]})`
           };
           
           pointDictionary[chartPoint['x']].push(chartPoint);
@@ -220,12 +216,14 @@ class VizContainer extends React.Component<VizProps, VizState> {
         for (const returnIntKey in durDataObj) {
           const projectionVal: number = Number(durDataObj[returnIntKey].toFixed(2));
           const returnIntStr: string = returnIntKey.substring(0, returnIntKey.length-3);
-          const explanationStr: string = `At this site, the ${returnIntStr}-year recurrence interval, ${filterValue}-hour design storm is projected to change by ${projectionVal}% by the ${decade}s (relative to 1970-1999) under a high greenhouse gas scenario (RCP 8.5)`
           
           const chartPoint : any = {
             x: returnArrValues.indexOf(Number(returnIntStr)),
             y: projectionVal,
-            explanation: explanationStr
+            duration: durKey,
+            returnInt: returnIntKey,
+            gcm: gcmKey.slice(0, gcmKey.length-13),
+            decade: `${decade} (${decadeStrMap[decade]})`
           };
 
           pointDictionary[chartPoint['x']].push(chartPoint);
@@ -280,12 +278,14 @@ class VizContainer extends React.Component<VizProps, VizState> {
 
       for (let key in decadeData) {
         const projectionVal: number = Number(decadeData[key][durKey][retIntKey].toFixed(2));
-        const explanationStr: string = `At this site, the ${returnInt}-year recurrence interval, ${duration}-hour design storm is projected to change by ${projectionVal}% by the ${decadeStrMap[i][0]}s (relative to 1970-1999) under a high greenhouse gas scenario (RCP 8.5)`
-        
+    
         const chartPoint : any = {
           x: i,
           y: projectionVal,
-          explanation: explanationStr
+          duration: durKey,
+          returnInt: retIntKey,
+          gcm: key.slice(0, key.length-13),
+          decade: `${decadeStrMap[i][0]} (${decadeStrMap[i][1]})`
         };
 
         decadeDictionary[i].push(chartPoint)

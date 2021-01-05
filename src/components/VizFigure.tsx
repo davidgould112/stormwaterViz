@@ -57,6 +57,11 @@ const VizFigure: React.FC<VizFigProps> = ({ vizConfig,
       <div id="viz-fig">
         <HighchartsReact id="viz-fig" ref={chart} updateArgs={[true]} highcharts={Highcharts} options={vizConfig}></HighchartsReact>
       </div>
+      <div id="chart-info">
+        Click and drag over points to zoom. 
+        <br/> 
+        Reset zoom using button located top-right.
+      </div>
       <div id="btn-row">
         <button onClick={downloadImage} id="fig-btn">
           Download Figure
