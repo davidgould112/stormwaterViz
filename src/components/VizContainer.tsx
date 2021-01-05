@@ -159,18 +159,22 @@ class VizContainer extends React.Component<VizProps, VizState> {
    
   }
 
-  filterPrecipData (data: any ,decade: string, chartType: string, filterValue: number) {
+  filterPrecipData (data: any, decade: string, chartType: string, filterValue: number) {
+
+    let modelsArr: any[] = [];
+    let mediansArr: any[] = [];
 
     const decadeStrMap: any = {
       "2030": "2020-2049",
+      "2040": "2030-2059",
       "2050": "2040-2069",
+      "2060": "2050-2079",
+      "2070": "2060-2089",
       "2080": "2070-2099"
     };
     const durArrValues: number[] = [1, 2, 6, 24, 72];
     const returnArrValues: number[] = [2, 5, 10, 25, 50]
     const decadeData: any = data[decadeStrMap[decade]];
-    let modelsArr: any[] = [];
-    let mediansArr: any[] = [];
     let pointDictionary: any = {
       0: [],
       1: [],
@@ -178,52 +182,45 @@ class VizContainer extends React.Component<VizProps, VizState> {
       3: [],
       4: []
     }
-    const sortPoints = () => {
-      for (let i = 0; i < 5; i++) {
-        pointDictionary[i] = pointDictionary[i].sort((a: any,b: any) => a.y - b.y);
-        const medianPoint = pointDictionary[i].splice(6, 1)[0];
-        mediansArr.push(medianPoint);
-        modelsArr = [...modelsArr, ...pointDictionary[i]];
-      }
-    };
+    
     // example data point {
       //     x: duration,
       //     y: projected % change val,
-      //     explanation: "At this site, the 25-year recurrence interval, 1-hour design storm is projected to increase/decrease by X% by the 2080s (relative to 1970-1999), under a high greenhouse gas scenario (RCP 8.5)",
+      //     explanation: "At this site, the 25-year recurrence interval, 1-hour design storm is projected to change by X% by the 2080s (relative to 1970-1999), under a high greenhouse gas scenario (RCP 8.5)",
       // }
       
-      if (chartType === "duration") {
-        //choose all projection values for all durations given a return-interval filterValue
-        for (const gcmKey in decadeData) {
-          const gcmDataObj: any = decadeData[gcmKey];
+    if (chartType === "duration") {
+      //choose all projection values for all durations given a return-interval filterValue
+      for (const gcmKey in decadeData) {
+        const gcmDataObj: any = decadeData[gcmKey];
+        
+        for (const durKey in gcmDataObj) {
+          const durDataObj: any = gcmDataObj[durKey];
+          const returnIntKey: string = `${filterValue}-yr`
+          const projectionVal: number = Number(durDataObj[returnIntKey].toFixed(2));
+          const durStr: string = durKey.substring(0, durKey.length-3);
+          const explanationStr = `At this site, the ${filterValue}-year recurrence interval, ${durStr}-hour design storm is projected to change by ${projectionVal}% by the ${decade}s (relative to 1970-1999) under a high greenhouse gas scenario (RCP 8.5)`
           
-          for (const durKey in gcmDataObj) {
-            const durDataObj: any = gcmDataObj[durKey];
-            const returnIntKey: string = `${filterValue}-yr`
-            const projectionVal: number = Number(durDataObj[returnIntKey].toFixed(5));
-            const durStr: string = durKey.substring(0, durKey.length-3);
-            const explanationStr = `At this site, the ${filterValue}-year recurrence interval, ${durStr}-hour design storm is projected to increase/decrease by ${projectionVal}% by the ${decade}s (relative to 1970-1999) under a high greenhouse gas scenario (RCP 8.5)`
-            
-            const chartPoint : any = {
-              x: durArrValues.indexOf(Number(durStr)),
-              y: projectionVal,
-              explanation: explanationStr
-            };
-            
-            pointDictionary[chartPoint['x']].push(chartPoint);
-          }
-        } 
-      } else if (chartType === "return-int") {
-        // choose all projection values for all return-int values given a duration filterValue
-        for (const gcmKey in decadeData) {
+          const chartPoint : any = {
+            x: durArrValues.indexOf(Number(durStr)),
+            y: projectionVal,
+            explanation: explanationStr
+          };
+          
+          pointDictionary[chartPoint['x']].push(chartPoint);
+        }
+      } 
+    } else if (chartType === "return-int") {
+      // choose all projection values for all return-int values given a duration filterValue
+      for (const gcmKey in decadeData) {
         const gcmDataObj: any = decadeData[gcmKey];
         const durKey: string = `${filterValue}-hr`;
         const durDataObj: any = gcmDataObj[durKey];
         
         for (const returnIntKey in durDataObj) {
-          const projectionVal: number = Number(durDataObj[returnIntKey].toFixed(5));
+          const projectionVal: number = Number(durDataObj[returnIntKey].toFixed(2));
           const returnIntStr: string = returnIntKey.substring(0, returnIntKey.length-3);
-          const explanationStr: string = `At this site, the ${returnIntStr}-year recurrence interval, ${filterValue}-hour design storm is projected to increase/decrease by ${projectionVal}% by the ${decade}s (relative to 1970-1999) under a high greenhouse gas scenario (RCP 8.5)`
+          const explanationStr: string = `At this site, the ${returnIntStr}-year recurrence interval, ${filterValue}-hour design storm is projected to change by ${projectionVal}% by the ${decade}s (relative to 1970-1999) under a high greenhouse gas scenario (RCP 8.5)`
           
           const chartPoint : any = {
             x: returnArrValues.indexOf(Number(returnIntStr)),
@@ -234,14 +231,83 @@ class VizContainer extends React.Component<VizProps, VizState> {
           pointDictionary[chartPoint['x']].push(chartPoint);
         };
       };
-      
     };
-    
+
+    const sortPoints = () => {
+      for (let i = 0; i < 5; i++) {
+        pointDictionary[i] = pointDictionary[i].sort((a: any,b: any) => a.y - b.y);
+        const medianPoint = pointDictionary[i].splice(6, 1)[0];
+        mediansArr.push(medianPoint);
+        modelsArr = [...modelsArr, ...pointDictionary[i]];
+      }
+    };
     sortPoints()
     return {
       modelsArr: modelsArr,
       mediansArr: mediansArr
     };
+  }
+
+  filterDecadeData (data: any, duration: number, returnInt: number) {
+
+    let modelsArr: any[] = [];
+    let mediansArr: any[] = [];
+
+    const durKey: string = duration + "-hr";
+    const retIntKey: string = returnInt + "-yr"
+
+    const decadeStrMap: any = [
+      ["2030", "2020-2049"],
+      ["2040", "2030-2059"],
+      ["2050", "2040-2069"],
+      ["2060", "2050-2079"],
+      ["2070", "2060-2089"],
+      ["2080", "2070-2099"]
+    ];
+    
+    let decadeDictionary: any = {
+      0: [],
+      1: [],
+      2: [],
+      3: [],
+      4: [],
+      5: [],
+    }
+
+    for (let i = 0; i < decadeStrMap.length; i++) {
+
+      const decadeData = data[decadeStrMap[i][1]] 
+
+      for (let key in decadeData) {
+        const projectionVal: number = Number(decadeData[key][durKey][retIntKey].toFixed(2));
+        const explanationStr: string = `At this site, the ${returnInt}-year recurrence interval, ${duration}-hour design storm is projected to change by ${projectionVal}% by the ${decadeStrMap[i][0]}s (relative to 1970-1999) under a high greenhouse gas scenario (RCP 8.5)`
+        
+        const chartPoint : any = {
+          x: i,
+          y: projectionVal,
+          explanation: explanationStr
+        };
+
+        decadeDictionary[i].push(chartPoint)
+      }
+    }
+
+    const sortDecadePoints = () => {
+      for (let i = 0; i < 6; i++) {
+        decadeDictionary[i] = decadeDictionary[i].sort((a: any,b: any) => a.y - b.y);
+        const medianPoint = decadeDictionary[i].splice(6, 1)[0];
+        mediansArr.push(medianPoint);
+        modelsArr = [...modelsArr, ...decadeDictionary[i]];
+      }
+    };
+
+    sortDecadePoints();
+    
+    return {
+      modelsArr: modelsArr,
+      mediansArr: mediansArr
+    };
+
   }
 
   xAxisToggle (event: React.ChangeEvent<HTMLInputElement>): void {
@@ -256,17 +322,24 @@ class VizContainer extends React.Component<VizProps, VizState> {
     } else if (event.target.value === "return-int") {
       newVizConfig.title.text = `Return Interval Projections for ${this.state.duration}-hour Event in Decade ${this.state.decade}`;
       newVizConfig.xAxis.title.text = "Return Interval (years)";
-      newVizConfig.xAxis.categories = [1, 5, 10, 25, 50];
+      newVizConfig.xAxis.categories = [2, 5, 10, 25, 50];
       const chartData = this.filterPrecipData(this.state.gridJSON, this.state.decade, event.target.value, this.state.duration);
       newVizConfig.series[0].data = chartData["modelsArr"]
       newVizConfig.series[1].data = chartData["mediansArr"]
+    } else if (event.target.value === "decade") {
+      newVizConfig.title.text = `Decadal Projections for ${this.state.duration}-hour, ${this.state.returnInt}-year Event`;
+      newVizConfig.xAxis.title.text = "Decade";
+      newVizConfig.xAxis.categories = [2030, 2040, 2050, 2060, 2070, 2080];
+      const chartData = this.filterDecadeData(this.state.gridJSON, this.state.duration, this.state.returnInt);
+      newVizConfig.series[0].data = chartData["modelsArr"]
+      newVizConfig.series[1].data = chartData["mediansArr"]
     }
-
-    this.setState({
-      xAxisParam: event.target.value,
-      vizConfig: newVizConfig  
-    })
-} 
+      
+      this.setState({
+        xAxisParam: event.target.value,
+        vizConfig: newVizConfig  
+      })
+  } 
 
   handleReturnIntChange (event: React.ChangeEvent<HTMLSelectElement>): void {
     let newVizConfig: any = this.state.vizConfig;
@@ -275,7 +348,12 @@ class VizContainer extends React.Component<VizProps, VizState> {
       const chartData = this.filterPrecipData(this.state.gridJSON, this.state.decade, this.state.xAxisParam, Number(event.target.value));
       newVizConfig.series[0].data = chartData["modelsArr"]
       newVizConfig.series[1].data = chartData["mediansArr"]
-    } 
+    } else if (this.state.xAxisParam === "decade") {
+      newVizConfig.title.text = `Decadal Projections for ${this.state.duration}-hour, ${event.target.value}-year Event`;
+      const chartData = this.filterDecadeData(this.state.gridJSON, this.state.duration, Number(event.target.value))
+      newVizConfig.series[0].data = chartData["modelsArr"]
+      newVizConfig.series[1].data = chartData["mediansArr"]
+    }
 
     this.setState({
       returnInt: Number(event.target.value),
@@ -288,6 +366,11 @@ class VizContainer extends React.Component<VizProps, VizState> {
     if (this.state.xAxisParam === "return-int") {
       newVizConfig.title.text = `Return Interval Projections for ${event.target.value}-hour Event in Decade ${this.state.decade}`;
       const chartData = this.filterPrecipData(this.state.gridJSON, this.state.decade, this.state.xAxisParam, Number(event.target.value));
+      newVizConfig.series[0].data = chartData["modelsArr"]
+      newVizConfig.series[1].data = chartData["mediansArr"]
+    } else if (this.state.xAxisParam === "decade") {
+      newVizConfig.title.text = `Decadal Projections for ${event.target.value}-hour, ${this.state.returnInt}-year Event`;
+      const chartData = this.filterDecadeData(this.state.gridJSON, Number(event.target.value), this.state.returnInt)
       newVizConfig.series[0].data = chartData["modelsArr"]
       newVizConfig.series[1].data = chartData["mediansArr"]
     }
@@ -334,7 +417,15 @@ class VizContainer extends React.Component<VizProps, VizState> {
           handleDurationChange={this.handleDurationChange.bind(this)}
           handleDecadeChange={this.handleDecadeChange.bind(this)}
         />
-        <VizFigure vizConfig={this.state.vizConfig}/>
+        <VizFigure 
+          vizConfig={this.state.vizConfig} 
+          xAxisParam={this.state.xAxisParam}
+          duration={this.state.duration}
+          returnInt={this.state.returnInt}
+          decade={this.state.decade}
+          gridJSON={this.state.gridJSON}
+          gridCell={this.props.selectedGridCell}
+        />
       </div>
     )
   }

@@ -1,15 +1,17 @@
-
-const decadeList: string[] = [
-  "2020-2049",
-  "2040-2069",
-  "2070-2099"
-];
-const durArr: number[] = [1, 2, 6, 24, 72];
-const returnArr: number[] = [2, 5, 10, 25, 50]
-
-
+// generates csv for all grid cell data
 
 const jsonToCSV: any = (gridJSON: any) => {
+
+  const decadeList: string[] = [
+    "2020-2049",
+    "2030-2059",
+    "2040-2069",
+    "2050-2079",
+    "2060-2089",
+    "2070-2099"
+  ];
+  const durArr: number[] = [1, 2, 6, 24, 72];
+  const returnArr: number[] = [2, 5, 10, 25, 50];
   const headers = [
     "Return Interval(years)",
     "Duration(hours)",
@@ -20,7 +22,7 @@ const jsonToCSV: any = (gridJSON: any) => {
     "canesm2_RCP8.5",
     "ccsm4_RCP8.5",
     "csiro-mk3.6.0_RCP8.5",
-    "ensemble_RCP8.5",
+    // "ensemble_RCP8.5",
     "fgoals-g2_RCP8.5",
     "gfdl-cm3_RCP8.5",
     "giss-e2-h_RCP8.5",
@@ -45,7 +47,7 @@ const jsonToCSV: any = (gridJSON: any) => {
 
 }
 
-const createRows: any = (returnArr: number[], durArr: number[]) => {
+const createRows: any = (returnArr: number[], durArr: number[], decadeList: string[]) => {
   let rowArr: any[] = []; 
   for(let i = 0; i < returnArr.length; i++) {
     for(let j = 0; j < durArr.length; j++) {
@@ -65,7 +67,7 @@ const addModelColumns: any = (arr: number[], JSON: any) => {
     "canesm2_RCP8.5_wyMAX",
     "ccsm4_RCP8.5_wyMAX",
     "csiro-mk3.6.0_RCP8.5_wyMAX",
-    "ensemble_RCP8.5_wyMAX",
+    // "ensemble_RCP8.5_wyMAX",
     "fgoals-g2_RCP8.5_wyMAX",
     "gfdl-cm3_RCP8.5_wyMAX",
     "giss-e2-h_RCP8.5_wyMAX",
@@ -75,7 +77,7 @@ const addModelColumns: any = (arr: number[], JSON: any) => {
   ];
 
   for (let i = 0; i < gcmList.length; i++) {
-    arr.push(JSON[arr[2]][gcmList[i]][arr[1] + '-hr'][arr[0] + '-yr']);
+    arr.push(JSON[arr[2]][gcmList[i]][arr[1] + '-hr'][arr[0] + '-yr'].toFixed(1));
   }
 }
 
@@ -84,28 +86,8 @@ const addMathColumns: any = (arr: number[]) => {
   dataArr.sort((a, b) => a - b)
   // with 13 GCM's, the sorted arr has mediam at index-6, max at index-12, min at index-0
   arr.push(dataArr[6])
-  arr.push(dataArr[12])
+  arr.push(dataArr[11]) // index 11 w/o ensemble, 12 w/ ensemble
   arr.push(dataArr[0])
 }
-
-
-
-
-// ["firstname", "lastname", "email"],
-// ["Ahmed", "Tomi", "ah@smthing.co.com"],
-// ["Raed", "Labes", "rl@smthing.co.com"],
-// ["Yezzi", "Min l3b", "ymin@cocococo.com"]
-// ];
-
-// headers = [
-//   { label: 'First Name', key: 'details.firstName' },
-//   { label: 'Last Name', key: 'details.lastName' },
-//   { label: 'Job', key: 'job' },
-// ];
- 
-// data = [
-//   { details: { firstName: 'Ahmed', lastName: 'Tomi' }, job: 'manager'},
-//   { details: { firstName: 'John', lastName: 'Jones' }, job: 'developer'},
-// ];
 
 export default jsonToCSV;
