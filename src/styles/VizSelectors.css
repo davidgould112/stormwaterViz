@@ -59,7 +59,7 @@ input {
 .select-container {
   display: flex;
   flex-direction: column;
-  align-items: top;
+  align-items: flex-start;
   justify-content: center;
   margin: 20px 0px;
   height: 90%;
@@ -75,7 +75,6 @@ select {
   height: 30px;
   width: 88%;
   min-width: 180px;
-  margin-top: 5px;
   padding-left: 10px;
   padding-right: 16px;
   border: 1px solid #F2F2F2;
@@ -96,8 +95,8 @@ option {
 
 #grid-btn-wrapper {
   width: 200px;
-  min-height: 36px;
-  margin: 15px 5% 0px 0px ;
+  min-height: 40px;
+  margin: 5px 5% 0px 0px ;
 }
 
 #grid-data-btn {

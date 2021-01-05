@@ -51,14 +51,16 @@
   height: 40px;
 }
 
-@media only screen and (min-width: 1300px) {
+@media only screen and (min-width: 900px) {
   #fig-container {
-    max-height: 560px;
+    max-height: 600px;
     align-self: flex-start
   }
-    #viz-fig {
-      max-width: 80%;
-    }
+  
+  #viz-fig {
+    width: 85%;
+  }
+
   #chart-info {
     margin: 35px 12% 0px 0px;
   }
@@ -68,14 +70,22 @@
   }
 }
 
-@media only screen and (min-width: 1600px) {
+@media only screen and (max-height: 800px) {
+  #fig-container {
+    max-height: 600px;
+    align-self: flex-start
+  }
+  
   #viz-fig {
-    max-width: 70%;
+    width: 85%;
+    height: 400px;
   }
+
   #chart-info {
-    margin: 35px 17% 0px 0px;
+    margin: 12px 12% 0px 0px;
   }
+
   #btn-row {
-    margin: 3% 16.5% 0% 0%;
+    margin: 8px 11.5% 0% 0%;
   }
 }
