@@ -28,29 +28,38 @@ const VizFigure: React.FC<VizFigProps> = ({ vizConfig,
                                           }) => {
 
   const chart = useRef<any>(null);
+  
+  let csvFileName: string = '';
+  
+  if (xAxisParam === "decade") {
+    csvFileName = `${xAxisParam}-chart-data_row-col${gridCell.row_index_}-${gridCell.column_ind}_lat-lon${gridCell.Center_Lat}-${Math.abs(gridCell.Center_Lon)}_return-interval${returnInt}_duration${duration}.csv`;
+  } else if (xAxisParam === "return-int") {
+    csvFileName = `${xAxisParam}-chart-data_row-col${gridCell.row_index_}-${gridCell.column_ind}_lat-lon${gridCell.Center_Lat}-${Math.abs(gridCell.Center_Lon)}_decade${decade}_duration${duration}.csv`;
+  } else if (xAxisParam === "duration") {
+    csvFileName = `${xAxisParam}-chart-data_row-col${gridCell.row_index_}-${gridCell.column_ind}_lat-lon${gridCell.Center_Lat}-${Math.abs(gridCell.Center_Lon)}_return-interval${returnInt}_decade${decade}.csv`;
+  }
 
-  const downloadImage = () => {
+  let pngFileName: string = '';
+  
+  if (xAxisParam === "decade") {
+    pngFileName = `${xAxisParam}-chart-img_row-col${gridCell.row_index_}-${gridCell.column_ind}_lat-lon${gridCell.Center_Lat}-${Math.abs(gridCell.Center_Lon)}_return-interval${returnInt}_duration${duration}`;
+  } else if (xAxisParam === "return-int") {
+    pngFileName = `${xAxisParam}-chart-img_row-col${gridCell.row_index_}-${gridCell.column_ind}_lat-lon${gridCell.Center_Lat}-${Math.abs(gridCell.Center_Lon)}_decade${decade}_duration${duration}`;
+  } else if (xAxisParam === "duration") {
+    pngFileName = `${xAxisParam}-chart-img_row-col${gridCell.row_index_}-${gridCell.column_ind}_lat-lon${gridCell.Center_Lat}-${Math.abs(gridCell.Center_Lon)}_return-interval${returnInt}_decade${decade}`;
+  }
+
+
+  const downloadImage = () => { 
     if (chart && chart.current && chart.current.chart) {
-      chart.current.chart.exportChart();
+      chart.current.chart.exportChart({filename: pngFileName});
     }
   };  
-
+  
   let chartCSVData: any = [[]];
   if (Object.keys(gridJSON).length > 0) {
     chartCSVData = createChartCSV(gridJSON, xAxisParam, decade, returnInt, duration);
   }
-
-  let fileName: string = '';
-  
-  if (xAxisParam === "decade") {
-    fileName = `${xAxisParam}-chart-data_row-col${gridCell.row_index_}-${gridCell.column_ind}_lat-lon${gridCell.Center_Lat}-${Math.abs(gridCell.Center_Lon)}_return-interval${returnInt}_duration${duration}.csv`;
-  } else if (xAxisParam === "return-int") {
-    fileName = `${xAxisParam}-chart-data_row-col${gridCell.row_index_}-${gridCell.column_ind}_lat-lon${gridCell.Center_Lat}-${Math.abs(gridCell.Center_Lon)}_decade${decade}_duration${duration}.csv`;
-  } else if (xAxisParam === "duration") {
-    fileName = `${xAxisParam}-chart-data_row-col${gridCell.row_index_}-${gridCell.column_ind}_lat-lon${gridCell.Center_Lat}-${Math.abs(gridCell.Center_Lon)}_return-interval${returnInt}_decade${decade}.csv`;
-  }
-
-
 
   return (
     <div id="fig-container">
@@ -59,14 +68,12 @@ const VizFigure: React.FC<VizFigProps> = ({ vizConfig,
       </div>
       <div id="chart-info">
         Click and drag over points to zoom. 
-        <br/> 
-        Reset zoom using button located top-right.
       </div>
       <div id="btn-row">
         <button onClick={downloadImage} id="fig-btn">
           Download Figure
         </button>
-        <CSVLink data={chartCSVData} filename={fileName}>
+        <CSVLink data={chartCSVData} filename={csvFileName}>
           <button id="data-btn">
             Download Chart Data
           </button>

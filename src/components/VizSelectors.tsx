@@ -42,26 +42,26 @@ const VizSelectors: React.FC<SelectorProps> = ({duration,
     <div id="viz-select">
       <div id="radios">
         <div className="radio-container">
-          <div id="radio-header">Select to show projected changes in</div>
+          <div id="radio-header">Select x-axis</div>
           <label className="radio-row">
             <input type="radio" value="duration" name="xParam" checked={xAxisParam === "duration"} onChange={xAxisToggle}/> 
             <span className="radio-label">Duration</span>
           </label>
-          <div className="radio-description">Duration is how long a precipitation events lasts (i.e. 1-hour, 6-hours, 24-hours)</div>
+          <div className="radio-description">Duration is how long a precipitation events lasts (e.g. 1-hour, 6-hours, 24-hours)</div>
         </div>
         <div className="radio-container">
           <label className="radio-row">
             <input type="radio" value="return-int" name="xParam" checked={xAxisParam === "return-int"} onChange={xAxisToggle}/> 
             <span className="radio-label">Return Interval</span>
           </label>
-          <div className="radio-description">How common or rare storms of different magnitudes are. A larger return period implies a rarer event.</div>
+          <div className="radio-description">How common or rare storms of different magnitudes are. A larger return period implies a rarer and larger event.</div>
         </div>
         <div className="radio-container">
           <label className="radio-row">
             <input type="radio" value="decade" name="xParam" checked={xAxisParam === "decade"} onChange={xAxisToggle}/> 
             <span className="radio-label">Decade</span>
           </label>
-          <div className="radio-description">Compare projections across decades for a given event duration and return interval</div>
+          <div className="radio-description">View projected changes over time for a given event duration and return interval</div>
         </div>
       </div> 
       { (() => {
@@ -171,7 +171,7 @@ const VizSelectors: React.FC<SelectorProps> = ({duration,
       }
       <CSVLink id="grid-btn-wrapper" data={csvData} filename={fileName}>
         <button id="grid-data-btn">
-          Download Grid Cell Data
+          Download All Data For Grid Cell
         </button>
       </CSVLink>
     </div>

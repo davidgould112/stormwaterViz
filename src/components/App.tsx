@@ -23,8 +23,8 @@ class App extends React.Component<any, AppState> {
       column_ind: 0,
       row_index_: 0
     },
-    center: [45.599870, -119.536093],
-    zoom: 6
+    center: [45.3, -116.9],
+    zoom: 5
   };
   
   mapClick(e: LeafletEvent, feature: any, mapZoom: number): void {

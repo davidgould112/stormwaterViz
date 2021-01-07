@@ -15,7 +15,7 @@
 }
 
 #chart-info {
-  margin: 35px 6% 0px 0px;
+  margin: 5px 6% 0px 0px;
   font-size: 14px;
   color: rgb(215, 77, 38);
   font-weight: bold;
@@ -62,7 +62,7 @@
   }
 
   #chart-info {
-    margin: 35px 12% 0px 0px;
+    margin: 5px 12% 0px 0px;
   }
 
   #btn-row {
@@ -82,7 +82,7 @@
   }
 
   #chart-info {
-    margin: 12px 12% 0px 0px;
+    margin: 5px 12% 0px 0px;
   }
 
   #btn-row {

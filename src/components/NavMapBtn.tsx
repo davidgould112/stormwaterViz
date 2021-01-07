@@ -17,7 +17,7 @@ const NavMapBtn: React.FC<MapBtnProps> = ({ selectedGridCell, buttonClickHandler
       <div id="map-thumb">
         <LeafletMap 
           selectedGridCell={selectedGridCell}
-          center={[selectedGridCell.Center_Lat + 0.23, selectedGridCell.Center_Lon]}
+          center={[selectedGridCell.Center_Lat + 0.28, selectedGridCell.Center_Lon]}
           zoom={8}
           clickHandler={mapClickHandler}
           zoomControl={true}
