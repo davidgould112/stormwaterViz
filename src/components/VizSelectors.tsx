@@ -78,6 +78,7 @@ const VizSelectors: React.FC<SelectorProps> = ({duration,
                   <option value="10">10-year</option>
                   <option value="25">25-year</option>
                   <option value="50">50-year</option>
+                  <option value="100">100-year</option>
                 </select>
                 <Caret/>
               </div>
@@ -145,6 +146,7 @@ const VizSelectors: React.FC<SelectorProps> = ({duration,
                   <option value="10">10-year</option>
                   <option value="25">25-year</option>
                   <option value="50">50-year</option>
+                  <option value="100">100-year</option>
                 </select>
                 <Caret/>
               </div>

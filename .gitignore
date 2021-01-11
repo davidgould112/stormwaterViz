@@ -11,6 +11,9 @@
 # production
 /build
 
+# data
+/public/gridFiles
+
 # misc
 .DS_Store
 .env.local

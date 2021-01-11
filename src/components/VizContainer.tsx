@@ -109,10 +109,6 @@ class VizContainer extends React.Component<VizProps, VizState> {
                 enabled: false
               }
             }
-          },
-          tooltip: {
-            headerFormat: '',
-            pointFormat:'<span>Projected Change: {point.y} %</span><br/><span>Global Climate Model: {point.gcm}</span><br/><span>Greenhouse Gas Scenario: RCP 8.5 (High)</span><br/><span>Duration: {point.duration}</span><br/><span>Return Invterval: {point.returnInt}</span><br/><span>Time Period: {point.decade} relative to 1981-2010</span>'
           }
         }
       },
@@ -120,44 +116,72 @@ class VizContainer extends React.Component<VizProps, VizState> {
         name : 'Individual Model',
         color: 'rgba(11, 118, 183, .6)',
         border: 'solid 2px black',
-        data: []
-      }, {
+        data: [],
+        tooltip: {
+          headerFormat: '<span>{series.name} Value {series.marker}</span><br/>',
+          pointFormat:'<span>Projected Change: {point.y} %</span><br/><span>Global Climate Model: {point.gcm}</span><br/><span>Duration: {point.duration}</span><br/><span>Return Invterval: {point.returnInt}</span><br/><span>Time Period: {point.decade} relative to 1981-2010</span><br/><span>Greenhouse Gas Scenario: RCP 8.5 (High)</span>'
+        }
+      }, 
+      {
         name: 'Model Average', 
         marker: {
           symbol: 'diamond',
           radius: 7,
         },
         color: '#D74D26',
-        data: [] //changed by radio
+        data: [], //changed by radio
+        tooltip: {
+          headerFormat: '<span>{series.name} Value {series.marker}</span><br/>',
+          pointFormat:'<span>Projected Change: {point.y} %</span><br/><span>Duration: {point.duration}</span><br/><span>Return Invterval: {point.returnInt}</span><br/><span>Time Period: {point.decade} relative to 1981-2010</span><br/><span>Greenhouse Gas Scenario: RCP 8.5 (High)</span>'
+        }
       }]
-    },    
+    }    
   }
+  
 
   componentDidMount () {
-    fetch('grid_x101_y101.json',
-    {
-      headers : { 
+    this.fetchJSON(this.props.selectedGridCell.column_ind, this.props.selectedGridCell.row_index_);
+  }
+
+  componentDidUpdate(prevProps: VizProps) {
+    if (this.props.selectedGridCell.Center_Lon !== prevProps.selectedGridCell.Center_Lon || this.props.selectedGridCell.Center_Lat !== prevProps.selectedGridCell.Center_Lat) {
+      this.fetchJSON(this.props.selectedGridCell.column_ind, this.props.selectedGridCell.row_index_);
+    }
+  }
+
+  // 'https://data.cig.uw.edu/picea/stormwater/viz_data/grid_x' + x + '_y' + y + '.json',
+  fetchJSON(x: number, y: number) {
+    fetch('gridFiles/grid_x' + x + '_y' + y + '.json',
+      { headers : { 
         'Content-Type': 'application/json',
         'Accept': 'application/json'
-       }
+      }
     })
-      .then(response => response.json())
-      .then(data => {
-        const chartData: any = this.filterPrecipData(data, this.state.decade, this.state.xAxisParam, this.state.returnInt);
-        let newVizConfig: any = this.state.vizConfig;
-        newVizConfig.series[0].data = chartData["modelsArr"];
-        newVizConfig.series[1].data = chartData["mediansArr"];
-        const csvData: any[] = jsonToCSV(data);
-        this.setState({
-          vizConfig: newVizConfig,
-          gridJSON: data,
-          csvData: csvData
-        })
-      })
-      .catch(function(err) {
-        console.log('Fetch Error :-S', err);
-      });
-   
+    .then(response => response.json())
+    .then(data => {
+      console.log("grid data: ", this.state, data);
+      let chartData: any = [];
+      if(this.state.xAxisParam === "decade") {
+        chartData = this.filterDecadeData(data, this.state.duration, this.state.returnInt);
+      } else if (this.state.xAxisParam === "duration") {
+        chartData = this.filterPrecipData(data, this.state.decade, this.state.xAxisParam, this.state.returnInt);
+      } else if (this.state.xAxisParam === "return-int") {
+        chartData = this.filterPrecipData(data, this.state.decade, this.state.xAxisParam, this.state.duration);
+      }
+
+      let newVizConfig: any = this.state.vizConfig;
+      newVizConfig.series[0].data = chartData["modelsArr"];
+      newVizConfig.series[1].data = chartData["mediansArr"];
+      const csvData: any[] = jsonToCSV(data);
+      this.setState({
+        vizConfig: newVizConfig,
+        gridJSON: data,
+        csvData: csvData
+      }, ()=>console.log("after fetch state: ", this.state))
+    })
+    .catch(function(err) {
+      console.log('Fetch Error :-S', err);
+    });
   }
 
   filterPrecipData (data: any, decade: string, chartType: string, filterValue: number) {
@@ -174,15 +198,32 @@ class VizContainer extends React.Component<VizProps, VizState> {
       "2080": "2070-2099"
     };
     const durArrValues: number[] = [1, 2, 6, 24, 72];
-    const returnArrValues: number[] = [2, 5, 10, 25, 50]
+    const returnArrValues: number[] = [2, 5, 10, 25, 50, 100]
     const decadeData: any = data[decadeStrMap[decade]];
-    let pointDictionary: any = {
+    let durPointDictionary: any = {
       0: [],
       1: [],
       2: [],
       3: [],
       4: []
     }
+    let retIntPointDictionary: any = {
+      0: [],
+      1: [],
+      2: [],
+      3: [],
+      4: [],
+      5: []
+    }
+
+    const sortPoints = (pointDictionary: any) => {
+      for (let i = 0; i < Object.keys(pointDictionary).length; i++) {
+        pointDictionary[i] = pointDictionary[i].sort((a: any,b: any) => a.y - b.y);
+        const medianPoint = pointDictionary[i].splice(6, 1)[0];
+        mediansArr.push(medianPoint);
+        modelsArr = [...modelsArr, ...pointDictionary[i]];
+      }
+    };
   
     if (chartType === "duration") {
       //choose all projection values for all durations given a return-interval filterValue
@@ -204,20 +245,24 @@ class VizContainer extends React.Component<VizProps, VizState> {
             decade: `${decade} (${decadeStrMap[decade]})`
           };
           
-          pointDictionary[chartPoint['x']].push(chartPoint);
+          durPointDictionary[chartPoint['x']].push(chartPoint);
         }
       } 
+      sortPoints(durPointDictionary);
     } else if (chartType === "return-int") {
       // choose all projection values for all return-int values given a duration filterValue
       for (const gcmKey in decadeData) {
         const gcmDataObj: any = decadeData[gcmKey];
         const durKey: string = `${filterValue}-hr`;
         const durDataObj: any = gcmDataObj[durKey];
-        
+        console.log("durDataObj: " , durDataObj);
         for (const returnIntKey in durDataObj) {
           const projectionVal: number = Number(durDataObj[returnIntKey].toFixed(2));
           const returnIntStr: string = returnIntKey.substring(0, returnIntKey.length-3);
-          
+          console.log("return Arr index: ", returnArrValues.indexOf(Number(returnIntStr)))
+          if( returnIntStr === "100") {
+            console.log("100 pt: ", projectionVal)
+          }
           const chartPoint : any = {
             x: returnArrValues.indexOf(Number(returnIntStr)),
             y: projectionVal,
@@ -227,20 +272,14 @@ class VizContainer extends React.Component<VizProps, VizState> {
             decade: `${decade} (${decadeStrMap[decade]})`
           };
 
-          pointDictionary[chartPoint['x']].push(chartPoint);
+          retIntPointDictionary[chartPoint['x']].push(chartPoint);
         };
       };
+      console.log("retIntPt: ", retIntPointDictionary)
+      sortPoints(retIntPointDictionary);
     };
 
-    const sortPoints = () => {
-      for (let i = 0; i < 5; i++) {
-        pointDictionary[i] = pointDictionary[i].sort((a: any,b: any) => a.y - b.y);
-        const medianPoint = pointDictionary[i].splice(6, 1)[0];
-        mediansArr.push(medianPoint);
-        modelsArr = [...modelsArr, ...pointDictionary[i]];
-      }
-    };
-    sortPoints()
+    
     return {
       modelsArr: modelsArr,
       mediansArr: mediansArr
@@ -323,7 +362,7 @@ class VizContainer extends React.Component<VizProps, VizState> {
     } else if (event.target.value === "return-int") {
       newVizConfig.title.text = `Projected Change vs Return Interval for the ${this.state.duration}-hour Event, ${this.state.decade}s`;
       newVizConfig.xAxis.title.text = "Return Interval (years)";
-      newVizConfig.xAxis.categories = [2, 5, 10, 25, 50];
+      newVizConfig.xAxis.categories = [2, 5, 10, 25, 50, 100];
       const chartData = this.filterPrecipData(this.state.gridJSON, this.state.decade, event.target.value, this.state.duration);
       newVizConfig.series[0].data = chartData["modelsArr"]
       newVizConfig.series[1].data = chartData["mediansArr"]

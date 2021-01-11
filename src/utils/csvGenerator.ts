@@ -11,7 +11,7 @@ const jsonToCSV: any = (gridJSON: any) => {
     "2070-2099"
   ];
   const durArr: number[] = [1, 2, 6, 24, 72];
-  const returnArr: number[] = [2, 5, 10, 25, 50];
+  const returnArr: number[] = [2, 5, 10, 25, 50, 100];
   const headers = [
     "Return Interval(years)",
     "Duration(hours)",
@@ -41,7 +41,7 @@ const jsonToCSV: any = (gridJSON: any) => {
   }
 
   rows.unshift(headers);
-
+  
   return rows
 
 }
@@ -83,8 +83,9 @@ const addModelColumns: any = (arr: number[], JSON: any) => {
 const addMathColumns: any = (arr: number[]) => {
   
   let dataArr: number [] = arr.slice(3);
+
+  //sorts array lowest to highest value
   dataArr.sort((a, b) => a - b)
-  // with 13 GCM's, the sorted arr has mediam at index-6, max at index-12, min at index-0
   
   arr.push(dataArr[dataArr.length-1])
   arr.push(dataArr[0])
