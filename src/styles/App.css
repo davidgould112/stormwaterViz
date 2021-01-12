@@ -30,12 +30,13 @@
 #footer-text {
   font-weight: bold;
   font-size: 16px;
-  color: #0B76B7;
+  color: #354374;
   display: inline-block;
 }
 
 
 #link {
+  text-decoration: none;
   min-width: 250px;
   height: 40px;
   margin: auto 10px;

@@ -13,11 +13,11 @@
 }
 #nav-logo {
   background: url('/cig-logo.png');
-  background-size: 140px;
+  background-size: 135px;
   background-position: center;
   background-repeat: no-repeat;
   width: 80px;
-  height: 150px;
+  height: 140px;
   min-width: 80px;
   margin: auto 10px auto 30px;
 }
@@ -35,7 +35,7 @@
 }
 
 #nav-subtitle-map {
-  color: #0B76B7;
+  color: #354374;
   margin: 20px 0px 0px 4%;
   width: 95%;
   font-size: 14pt;
@@ -57,7 +57,7 @@
 }
 
 #nav-subtitle-dynamic {
-  color:#0B76B7;
+  color:#354374;
   display: inline-block;
   margin-left: 10px;
   font-size: 11pt;

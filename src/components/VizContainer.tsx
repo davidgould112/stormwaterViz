@@ -64,10 +64,10 @@ class VizContainer extends React.Component<VizProps, VizState> {
       },
       yAxis: {
         title: {
-          text: '% Change from Historical (1980s)',
+          text: '% Change from Historical (1981-2010)',
           style: {
             color: 'black',
-            fontSize: '16px'
+            fontSize: '14px'
           }
         },
         plotLines: [{
@@ -114,16 +114,18 @@ class VizContainer extends React.Component<VizProps, VizState> {
       },
       series: [{
         name : 'Individual Model',
+        className: 'ind-model',
         color: 'rgba(11, 118, 183, .6)',
         border: 'solid 2px black',
         data: [],
         tooltip: {
-          headerFormat: '<span>{series.name} Value {series.marker}</span><br/>',
-          pointFormat:'<span>Projected Change: {point.y} %</span><br/><span>Global Climate Model: {point.gcm}</span><br/><span>Duration: {point.duration}</span><br/><span>Return Invterval: {point.returnInt}</span><br/><span>Time Period: {point.decade} relative to 1981-2010</span><br/><span>Greenhouse Gas Scenario: RCP 8.5 (High)</span>'
+          headerFormat: '',
+          pointFormat:'<span>Individual Model: <b>{point.gcm}</b></span><br/><span>Projected Change: <b>{point.y} %</b></span><br/><span>Duration: <b>{point.duration}</b></span><br/><span>Return Invterval: <b>{point.returnInt}</b></span><br/><span>Time Period: <b>{point.decade}</b> relative to 1981-2010</span><br/><span>Greenhouse Gas Scenario: <b>RCP 8.5 (High)</b></span>'
         }
       }, 
       {
         name: 'Model Average', 
+        className: 'model-avg',
         marker: {
           symbol: 'diamond',
           radius: 7,
@@ -131,8 +133,8 @@ class VizContainer extends React.Component<VizProps, VizState> {
         color: '#D74D26',
         data: [], //changed by radio
         tooltip: {
-          headerFormat: '<span>{series.name} Value {series.marker}</span><br/>',
-          pointFormat:'<span>Projected Change: {point.y} %</span><br/><span>Duration: {point.duration}</span><br/><span>Return Invterval: {point.returnInt}</span><br/><span>Time Period: {point.decade} relative to 1981-2010</span><br/><span>Greenhouse Gas Scenario: RCP 8.5 (High)</span>'
+          headerFormat: '',
+          pointFormat:'<span><b> Model Average </span></b><br/><span>Projected Change: <b>{point.y} %</b></span><br/><span>Duration: <b>{point.duration}</b></span><br/><span>Return Invterval: <b>{point.returnInt}</b></span><br/><span>Time Period: <b>{point.decade}</b> relative to 1981-2010</span><br/><span>Greenhouse Gas Scenario: <b>RCP 8.5 (High)</b></span>'
         }
       }]
     }    
@@ -149,9 +151,10 @@ class VizContainer extends React.Component<VizProps, VizState> {
     }
   }
 
-  // 'https://data.cig.uw.edu/picea/stormwater/viz_data/grid_x' + x + '_y' + y + '.json',
+  // 'gridFiles/grid_x' + x + '_y' + y + '.json', ::: file path for development
+  
   fetchJSON(x: number, y: number) {
-    fetch('gridFiles/grid_x' + x + '_y' + y + '.json',
+    fetch('https://data.cig.uw.edu/picea/stormwater/viz_data/grid_x' + x + '_y' + y + '.json',
       { headers : { 
         'Content-Type': 'application/json',
         'Accept': 'application/json'

@@ -1,6 +1,7 @@
 {
   "name": "stormwater-viz",
   "version": "0.1.0",
+  "homepage": "https://data.cig.uw.edu/picea/stormwater/viz/",
   "private": true, 
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
