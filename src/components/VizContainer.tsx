@@ -159,7 +159,6 @@ class VizContainer extends React.Component<VizProps, VizState> {
     })
     .then(response => response.json())
     .then(data => {
-      console.log("grid data: ", this.state, data);
       let chartData: any = [];
       if(this.state.xAxisParam === "decade") {
         chartData = this.filterDecadeData(data, this.state.duration, this.state.returnInt);
@@ -177,7 +176,7 @@ class VizContainer extends React.Component<VizProps, VizState> {
         vizConfig: newVizConfig,
         gridJSON: data,
         csvData: csvData
-      }, ()=>console.log("after fetch state: ", this.state))
+      })
     })
     .catch(function(err) {
       console.log('Fetch Error :-S', err);
@@ -255,13 +254,10 @@ class VizContainer extends React.Component<VizProps, VizState> {
         const gcmDataObj: any = decadeData[gcmKey];
         const durKey: string = `${filterValue}-hr`;
         const durDataObj: any = gcmDataObj[durKey];
-        console.log("durDataObj: " , durDataObj);
         for (const returnIntKey in durDataObj) {
           const projectionVal: number = Number(durDataObj[returnIntKey].toFixed(2));
           const returnIntStr: string = returnIntKey.substring(0, returnIntKey.length-3);
-          console.log("return Arr index: ", returnArrValues.indexOf(Number(returnIntStr)))
           if( returnIntStr === "100") {
-            console.log("100 pt: ", projectionVal)
           }
           const chartPoint : any = {
             x: returnArrValues.indexOf(Number(returnIntStr)),
@@ -275,7 +271,6 @@ class VizContainer extends React.Component<VizProps, VizState> {
           retIntPointDictionary[chartPoint['x']].push(chartPoint);
         };
       };
-      console.log("retIntPt: ", retIntPointDictionary)
       sortPoints(retIntPointDictionary);
     };
 

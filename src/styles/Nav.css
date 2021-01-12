@@ -9,7 +9,17 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+}
+#nav-logo {
+  background: url('/cig-logo.png');
+  background-size: 140px;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 80px;
+  height: 150px;
+  min-width: 80px;
+  margin: auto 10px auto 30px;
 }
 
 #nav-text {
@@ -17,7 +27,7 @@
 }
 
 #nav-title {
-  margin: 2% 5% 1%;
+  margin: 2% 3% 1%;
   color: #757575;
   font-size: 24px;
   font-weight: bold;
@@ -26,19 +36,18 @@
 
 #nav-subtitle-map {
   color: #0B76B7;
-  margin: 20px 0px 0px 7%;
+  margin: 20px 0px 0px 4%;
+  width: 95%;
   font-size: 14pt;
   font-weight: bolder;
   line-height: 28px;
-  width: 500px;
 }
 
 #nav-subtitle-container {
-  margin-left: 7%;
+  margin-left: 4%;
   font-weight: bolder;
   line-height: 22px;
-  width: 460px;
-
+  max-width: 430px;
 }
 
 #nav-subtitle-base {
@@ -52,9 +61,10 @@
   display: inline-block;
   margin-left: 10px;
   font-size: 11pt;
+  overflow-wrap: normal;
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 700px) {
   #nav-text {
     width: 50%
   }

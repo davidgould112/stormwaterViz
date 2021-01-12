@@ -3,6 +3,7 @@ import '../styles/App.css';
 import Nav from './Nav';
 import LeafletMap from './Map';
 import VizContainer from './VizContainer';
+import ReturnArrow from './ReturnArrow';
 import { LeafletEvent, LatLngTuple } from 'leaflet';
 import GridCell from '../types/GridCell'
 
@@ -64,6 +65,14 @@ class App extends React.Component<any, AppState> {
             :
             (<VizContainer selectedGridCell={this.state.selectedGridCell} />)
           }
+          <div id="app-footer"> 
+              <a id="link" href="https://cig.uw.edu/our-work/applied-research/heavy-precip-and-stormwater/">
+                <div id="footer-text">
+                  Return to Project Page 
+                </div>
+                <ReturnArrow/>
+              </a>
+          </div>
       </div>
     );
   };

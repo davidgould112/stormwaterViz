@@ -18,6 +18,7 @@ const Nav: React.FC<Props> = ({ renderMapView,
 
   return (
     <div id="nav-container">
+      <div id="nav-logo"/>
       <div id="nav-text">
         <div id="nav-title">
           Projected Changes in Extreme Precipitation
