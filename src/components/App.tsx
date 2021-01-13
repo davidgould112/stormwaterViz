@@ -2,16 +2,19 @@ import React from 'react';
 import '../styles/App.css';
 import Nav from './Nav';
 import LeafletMap from './Map';
+import Modal from './Modal'
 import VizContainer from './VizContainer';
 import ReturnArrow from './ReturnArrow';
 import { LeafletEvent, LatLngTuple } from 'leaflet';
 import GridCell from '../types/GridCell'
+
 
 type AppState = {
   selectedGridCell : GridCell
   renderMapView: boolean;
   center: LatLngTuple;
   zoom: number;
+  showModal: boolean;
 }
 
 class App extends React.Component<any, AppState> {
@@ -25,7 +28,8 @@ class App extends React.Component<any, AppState> {
       row_index_: 0
     },
     center: [45.3, -116.9],
-    zoom: 5
+    zoom: 5,
+    showModal: true
   };
   
   mapClick(e: LeafletEvent, feature: any, mapZoom: number): void {
@@ -45,9 +49,14 @@ class App extends React.Component<any, AppState> {
     this.setState({ renderMapView: true });
   }
 
+  closeModal(): void {
+    this.setState({ showModal: false })
+  }
+
   render () {
     return (
       <div className="App">
+        <Modal showModal={this.state.showModal} closeModal={this.closeModal.bind(this)}/>
         <Nav 
           renderMapView={this.state.renderMapView} 
           selectedGridCell={this.state.selectedGridCell}
