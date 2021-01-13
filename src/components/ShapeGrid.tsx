@@ -53,8 +53,6 @@ const ShapeGrid: React.FC<ShapeGridProps> = ({ clickHandler, selectedGridCell })
         layer.unbindTooltip()
       });
       layer.on('click', (e: LeafletEvent) => {
-        console.log("layer : ", layer , " feature : ", feature)
-        gridLayer.resetStyle();
         clickHandler(e, feature, map._zoom);
       });
     

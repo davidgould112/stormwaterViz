@@ -34,7 +34,7 @@ h2 {
   align-items: center;
   justify-content: center;
 }
-  button {
+#toggle-button {
   border: 0;
   color: #fff;
   background: #354374;

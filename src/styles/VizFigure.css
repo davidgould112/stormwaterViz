@@ -28,9 +28,9 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   height: 80px;
-  width: 290px;
+  width: 320px;
 } 
 
 #fig-btn {
@@ -49,6 +49,8 @@
   border: 3px solid #354374;
   border-radius: 3px;
   height: 40px;
+  margin-left: 20px;
+  padding: auto !important;
 }
 
 @media only screen and (min-width: 900px) {
