@@ -1,10 +1,21 @@
+#modal-screen {
+  height: 120vh;
+  width: 120vw;
+  background-color: #9ca2b8;
+  opacity: .9;
+  margin: -100px;
+  z-index: 9995;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 #modal {
   z-index: 9999;
-  position: fixed;
-  width: 500px;
+  width: 600px;
   overflow: auto;
-  margin-top: 20%;
   background: #fff;
   border: 1px solid #ccc;
   border-radius: 2px;
@@ -13,7 +24,7 @@
     -2rem 2rem 2rem rgba(black, 0.2);
   filter: blur(0);
   transform: scale(1);  
-  opacity: 1;
+  opacity: 1 !important;
   visibility: visible;
 }
 
@@ -22,8 +33,18 @@ h2 {
   padding: 1rem;
   margin: 0;
 }
+
+h3 {
+  color: #354374;
+}
+
+h4 {
+  font-weight: 500;
+}
 #content {
   padding: 1rem;
+  overflow: scroll;
+  height: 400px;
 }
 #actions {
   border-top: 1px solid #ccc;
@@ -40,7 +61,7 @@ h2 {
   background: #354374;
   border-radius: 2px;
   padding: 0.5rem 1rem;
-  font-size: 0.8rem;
+  font-size: 1.1rem;
   line-height: 1;
 }
   
