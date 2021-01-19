@@ -24,6 +24,7 @@
   color: #354374;
   margin: 4px 0px;
   padding-left: 3px;
+  font-style: italic;
 }
 
 #nav-btn {
@@ -38,6 +39,15 @@
   margin-left: 20px;
   margin-top: 5%;
   align-self: flex-start;
+}
+
+#nav-btn:focus {
+  background-color: #354374;
+  color: #fff;
+}
+#nav-btn:hover {
+  background-color: #354374;
+  color: #fff;
 }
 
 @media only screen and (min-width: 1300px) {

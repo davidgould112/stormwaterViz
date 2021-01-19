@@ -31,11 +31,11 @@ const VizSelectors: React.FC<SelectorProps> = ({duration,
                  
   let fileName: string = '';                                                
   if (xAxisParam === "decade") {
-    fileName = `$grid-data_row-col${gridCell.row_index_}-${gridCell.column_ind}_lat-lon${gridCell.Center_Lat}-${Math.abs(gridCell.Center_Lon)}_return-interval${returnInt}_duration${duration}.csv`;
+    fileName = `grid-data_row${gridCell.row_index_}-col${gridCell.column_ind}_lat${gridCell.Center_Lat}-lon${gridCell.Center_Lon}_${returnInt}-yr_${duration}-hr.csv`;
   } else if (xAxisParam === "return-int") {
-    fileName = `$grid-data_row-col${gridCell.row_index_}-${gridCell.column_ind}_lat-lon${gridCell.Center_Lat}-${Math.abs(gridCell.Center_Lon)}_decade${decade}_duration${duration}.csv`;
+    fileName = `grid-data_row${gridCell.row_index_}-col${gridCell.column_ind}_lat${gridCell.Center_Lat}-lon${gridCell.Center_Lon}_${duration}-hr_${decade}s.csv`;
   } else if (xAxisParam === "duration") {
-    fileName = `$grid-data_row-col${gridCell.row_index_}-${gridCell.column_ind}_lat-lon${gridCell.Center_Lat}-${Math.abs(gridCell.Center_Lon)}_return-interval${returnInt}_decade${decade}.csv`;
+    fileName = `grid-data_row${gridCell.row_index_}-col${gridCell.column_ind}_lat${gridCell.Center_Lat}-lon${gridCell.Center_Lon}_${returnInt}-yr_${decade}s.csv`;
   }
 
   return (

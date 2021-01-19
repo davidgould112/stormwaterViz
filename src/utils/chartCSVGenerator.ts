@@ -42,24 +42,11 @@ const createChartCSV: any = (gridJSON: any,
   ];
 
   const headers = [
+    "Model",
     "Return Interval(years)",
     "Duration(hours)",
     "Time Period",
-    "access1.0_RCP8.5",
-    "access1.3_RCP8.5",
-    "bcc-csm1.1_RCP8.5",
-    "canesm2_RCP8.5",
-    "ccsm4_RCP8.5",
-    "csiro-mk3.6.0_RCP8.5",
-    "fgoals-g2_RCP8.5",
-    "gfdl-cm3_RCP8.5",
-    "giss-e2-h_RCP8.5",
-    "miroc5_RCP8.5",
-    "mri-cgcm3_RCP8.5",
-    "noresm1-m_RCP8.5",
-    "Ensemble Average(mean)",
-    "Max",
-    "Min"
+    "Projected Change(%)",
   ];
 
   let rows : any[] = [];
@@ -69,54 +56,64 @@ const createChartCSV: any = (gridJSON: any,
   if (xAxisParam === "decade") {
 
     for(let i = 0; i < decadeList.length; i++) {
-      const row = [returnInt, duration, decadeList[i]];
+      let allValues: number[] = [];
       for(let j = 0; j < gcmList.length; j++) {
         const gcmVal = gridJSON[decadeList[i]][gcmList[j]][duration+"-hr"][ returnInt+"-yr"];
-        row.push(gcmVal.toFixed(1));
+        if(gcmList[j] === "ensemble_RCP8.5_wyMAX") {
+          rows.push(["Average", returnInt, duration, decadeList[i], gcmVal.toFixed(1)]);
+        } else {
+          rows.push([gcmList[j], returnInt, duration, decadeList[i], gcmVal.toFixed(1)]);
+          allValues.push(gcmVal);
+        }
       }
-      addMathColumns(row);
-      rows.push(row);
+      const minMaxArr: number[] = calcMinMax(allValues);
+      rows.push(["Min", returnInt, duration, decadeList[i], minMaxArr[0].toFixed(1)])
+      rows.push(["Max", returnInt, duration, decadeList[i], minMaxArr[1].toFixed(1)])
     }
 
   } else if (xAxisParam === "duration") {
-
     const decadeStr = decadeStrMap[decade];
-
+    let allValues: number[] = [];
     for(let i = 0; i < durArr.length; i++) {
-      const row = [returnInt, durArr[i], decadeStr];
       for(let j = 0; j < gcmList.length; j++) {
         const gcmVal = gridJSON[decadeStr][gcmList[j]][durArr[i]+"-hr"][ returnInt+"-yr"];
-        row.push(gcmVal.toFixed(1));
+        if(gcmList[j] === "ensemble_RCP8.5_wyMAX") {
+          rows.push(["Average", returnInt, durArr[i], decadeStr, gcmVal.toFixed(1)]);
+        } else {
+          rows.push([gcmList[j], returnInt, durArr[i], decadeStr, gcmVal.toFixed(1)]);
+          allValues.push(gcmVal);
+        }
       }
-      addMathColumns(row);
-      rows.push(row);
+      const minMaxArr: number[] = calcMinMax(allValues);
+      rows.push(["Min", returnInt, durArr[i], decadeStr, minMaxArr[0].toFixed(1)])
+      rows.push(["Max", returnInt, durArr[i], decadeStr, minMaxArr[1].toFixed(1)])
     }
 
   } else if (xAxisParam === "return-int") {
-
+    let allValues: number[] = [];
     const decadeStr = decadeStrMap[decade];
-
     for(let i = 0; i < returnArr.length; i++) {
-      const row = [returnArr[i], duration, decadeStr];
       for(let j = 0; j < gcmList.length; j++) {
         const gcmVal = gridJSON[decadeStr][gcmList[j]][duration+"-hr"][ returnArr[i]+"-yr"];
-        row.push(gcmVal.toFixed(1));
+        if(gcmList[j] === "ensemble_RCP8.5_wyMAX") {
+          rows.push(["Average", returnArr[i], duration, decadeStr, gcmVal.toFixed(1)]);
+        } else {
+          rows.push([gcmList[j], returnArr[i], duration, decadeStr, gcmVal.toFixed(1)]);
+          allValues.push(gcmVal);
+        }
       }
-      addMathColumns(row);
-      rows.push(row);
+      const minMaxArr: number[] = calcMinMax(allValues);
+      rows.push(["Min", returnArr[i], duration, decadeStr, minMaxArr[0].toFixed(1)])
+      rows.push(["Max", returnArr[i], duration, decadeStr, minMaxArr[1].toFixed(1)])
     }
-
   }
   return rows;
 }
 
-const addMathColumns: any = (arr: number[]) => {
-  let dataArr: number [] = arr.slice(3);
-
+const calcMinMax: any = (arr: number[]) => {
   //sorts array lowest to highest value
-  dataArr.sort((a, b) => a - b)
-  arr.push(dataArr[dataArr.length -1])
-  arr.push(dataArr[0])
+  arr.sort((a, b) => a - b)
+  return [arr[0], arr[arr.length -1]]
 }
 
 export default createChartCSV;

@@ -11,19 +11,19 @@
 #viz-fig {
   width: 98%;
   margin-top: 5%;
-
 }
 
 #chart-info {
-  margin: 5px 0% 0px 0px;
-  font-size: 14px;
-  color: #72bae4;
+  margin: 2px 0% 0px 0px;
+  font-size: 15px;
+  font-style: italic;
   font-weight: bold;
+  color: rgb(118, 140, 159);
   align-self: flex-end;
 }
 
 #btn-row {
-  margin: 3% 5% 0% 0%;
+  margin: 2% 5% 0% 0%;
   align-self: flex-end;
   display: flex;
   flex-direction: row;
@@ -42,6 +42,13 @@
   height: 40px;
 }
 
+#fig-btn:focus {
+  background-color: rgb(209, 214, 218);
+}
+#fig-btn:hover {
+  background-color: rgb(209, 214, 218);
+}
+
 #data-btn {
   color: #354374;
   font-weight: bold;
@@ -51,6 +58,13 @@
   height: 40px;
   margin-left: 20px;
   padding: auto !important;
+}
+
+#data-btn:focus {
+  background-color: rgb(209, 214, 218);
+}
+#data-btn:hover {
+  background-color: rgb(209, 214, 218);
 }
 
 @media only screen and (min-width: 900px) {
@@ -68,7 +82,7 @@
   }
 
   #btn-row {
-    margin: 3% 11.5% 0% 0%;
+    margin: 3% 8% 0% 0%;
   }
 }
 
@@ -88,6 +102,6 @@
   }
 
   #btn-row {
-    margin: 8px 11.5% 0% 0%;
+    margin: 8px 8% 0% 0%;
   }
 }

@@ -2,6 +2,8 @@
 
 const jsonToCSV: any = (gridJSON: any) => {
 
+  const durArr: number[] = [1, 2, 6, 24, 72];
+  const returnArr: number[] = [2, 5, 10, 25, 50, 100];
   const decadeList: string[] = [
     "2020-2049",
     "2030-2059",
@@ -10,55 +12,7 @@ const jsonToCSV: any = (gridJSON: any) => {
     "2060-2089",
     "2070-2099"
   ];
-  const durArr: number[] = [1, 2, 6, 24, 72];
-  const returnArr: number[] = [2, 5, 10, 25, 50, 100];
-  const headers = [
-    "Return Interval(years)",
-    "Duration(hours)",
-    "Time Period",
-    "access1.0_RCP8.5",
-    "access1.3_RCP8.5",
-    "bcc-csm1.1_RCP8.5",
-    "canesm2_RCP8.5",
-    "ccsm4_RCP8.5",
-    "csiro-mk3.6.0_RCP8.5",
-    "fgoals-g2_RCP8.5",
-    "gfdl-cm3_RCP8.5",
-    "giss-e2-h_RCP8.5",
-    "miroc5_RCP8.5",
-    "mri-cgcm3_RCP8.5",
-    "noresm1-m_RCP8.5",
-    "Ensemble Average(mean)",
-    "Max",
-    "Min"
-  ]
 
-  let rows = createRows(returnArr, durArr, decadeList);
-
-  for (let i = 0; i < rows.length; i++) {
-    addModelColumns(rows[i], gridJSON);
-    addMathColumns(rows[i]);
-  }
-
-  rows.unshift(headers);
-  
-  return rows
-
-}
-
-const createRows: any = (returnArr: number[], durArr: number[], decadeList: string[]) => {
-  let rowArr: any[] = []; 
-  for(let i = 0; i < returnArr.length; i++) {
-    for(let j = 0; j < durArr.length; j++) {
-      for(let k = 0; k < decadeList.length; k++) {
-        rowArr.push([returnArr[i], durArr[j], decadeList[k]])
-      }
-    }
-  }
-  return rowArr;
-};
-
-const addModelColumns: any = (arr: number[], JSON: any) => {
   const gcmList = [
     "access1.0_RCP8.5_wyMAX",
     "access1.3_RCP8.5_wyMAX",
@@ -75,20 +29,45 @@ const addModelColumns: any = (arr: number[], JSON: any) => {
     "ensemble_RCP8.5_wyMAX"
   ];
 
-  for (let i = 0; i < gcmList.length; i++) {
-    arr.push(JSON[arr[2]][gcmList[i]][arr[1] + '-hr'][arr[0] + '-yr'].toFixed(1));
+  const headers = [
+    "Model",
+    "Return Interval(years)",
+    "Duration(hours)",
+    "Time Period",
+    "Projected Change(%)",
+  ];
+
+  let rows : any[] = [];
+
+  rows.push(headers);
+
+  for(let g = 0; g < durArr.length; g++) {
+    for(let h = 0; h < returnArr.length; h++) {
+      for(let i = 0; i < decadeList.length; i++) {
+        let durRetDecValuesArr: number[] = [];
+        for(let j = 0; j < gcmList.length; j++) {
+          const gcmVal = gridJSON[decadeList[i]][gcmList[j]][durArr[g]+"-hr"][ returnArr[h]+"-yr"];
+          if(gcmList[j] === "ensemble_RCP8.5_wyMAX") {
+            rows.push(["Average", returnArr[h], durArr[g], decadeList[i], gcmVal.toFixed(1)]);
+          } else {
+            rows.push([gcmList[j], returnArr[h], durArr[g], decadeList[i], gcmVal.toFixed(1)]);
+            durRetDecValuesArr.push(gcmVal);
+          }
+        }
+        const minMaxArr: number[] = calcMinMax(durRetDecValuesArr);
+        rows.push(["Min", returnArr[h], durArr[g], decadeList[i], minMaxArr[0].toFixed(1)])
+        rows.push(["Max", returnArr[h], durArr[g], decadeList[i], minMaxArr[1].toFixed(1)])
+      }
+    }
   }
+
+  return rows;
 }
 
-const addMathColumns: any = (arr: number[]) => {
-  
-  let dataArr: number [] = arr.slice(3);
-
+const calcMinMax: any = (arr: number[]) => {
   //sorts array lowest to highest value
-  dataArr.sort((a, b) => a - b)
-  
-  arr.push(dataArr[dataArr.length-1])
-  arr.push(dataArr[0])
+  arr.sort((a, b) => a - b)
+  return [arr[0], arr[arr.length -1]]
 }
 
 export default jsonToCSV;

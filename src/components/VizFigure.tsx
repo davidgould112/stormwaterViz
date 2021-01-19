@@ -32,21 +32,21 @@ const VizFigure: React.FC<VizFigProps> = ({ vizConfig,
   let csvFileName: string = '';
   
   if (xAxisParam === "decade") {
-    csvFileName = `${xAxisParam}-chart-data_row-col${gridCell.row_index_}-${gridCell.column_ind}_lat-lon${gridCell.Center_Lat}-${Math.abs(gridCell.Center_Lon)}_return-interval${returnInt}_duration${duration}.csv`;
+    csvFileName = `${xAxisParam}-chart-data_row${gridCell.row_index_}-col${gridCell.column_ind}_lat${gridCell.Center_Lat}-lon${gridCell.Center_Lon}_${returnInt}-yr_${duration}-hr.csv`;
   } else if (xAxisParam === "return-int") {
-    csvFileName = `${xAxisParam}-chart-data_row-col${gridCell.row_index_}-${gridCell.column_ind}_lat-lon${gridCell.Center_Lat}-${Math.abs(gridCell.Center_Lon)}_decade${decade}_duration${duration}.csv`;
+    csvFileName = `${xAxisParam}-chart-data_row${gridCell.row_index_}-col${gridCell.column_ind}_lat${gridCell.Center_Lat}-lon${gridCell.Center_Lon}_${duration}-hr_${decade}s.csv`;
   } else if (xAxisParam === "duration") {
-    csvFileName = `${xAxisParam}-chart-data_row-col${gridCell.row_index_}-${gridCell.column_ind}_lat-lon${gridCell.Center_Lat}-${Math.abs(gridCell.Center_Lon)}_return-interval${returnInt}_decade${decade}.csv`;
+    csvFileName = `${xAxisParam}-chart-data_row${gridCell.row_index_}-col${gridCell.column_ind}_lat${gridCell.Center_Lat}-lon${gridCell.Center_Lon}_${returnInt}-yr_${decade}s.csv`;
   }
 
   let pngFileName: string = '';
   
   if (xAxisParam === "decade") {
-    pngFileName = `${xAxisParam}-chart-img_row-col${gridCell.row_index_}-${gridCell.column_ind}_lat-lon${gridCell.Center_Lat}-${Math.abs(gridCell.Center_Lon)}_return-interval${returnInt}_duration${duration}`;
+    pngFileName = `${xAxisParam}-chart-img_row${gridCell.row_index_}-col${gridCell.column_ind}_lat${gridCell.Center_Lat}-lon${gridCell.Center_Lon}_${returnInt}-yr_${duration}-hr`;
   } else if (xAxisParam === "return-int") {
-    pngFileName = `${xAxisParam}-chart-img_row-col${gridCell.row_index_}-${gridCell.column_ind}_lat-lon${gridCell.Center_Lat}-${Math.abs(gridCell.Center_Lon)}_decade${decade}_duration${duration}`;
+    pngFileName = `${xAxisParam}-chart-img_row${gridCell.row_index_}-col${gridCell.column_ind}_lat${gridCell.Center_Lat}-lon${gridCell.Center_Lon}_${duration}-hr_${decade}s`;
   } else if (xAxisParam === "duration") {
-    pngFileName = `${xAxisParam}-chart-img_row-col${gridCell.row_index_}-${gridCell.column_ind}_lat-lon${gridCell.Center_Lat}-${Math.abs(gridCell.Center_Lon)}_return-interval${returnInt}_decade${decade}`;
+    pngFileName = `${xAxisParam}-chart-img_row${gridCell.row_index_}-col${gridCell.column_ind}_lat${gridCell.Center_Lat}-lon${gridCell.Center_Lon}_${returnInt}-yr_${decade}s`;
   }
 
 

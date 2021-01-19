@@ -7,15 +7,19 @@
   z-index: 9995;
   position: fixed;
   display: flex;
+  display: -webkit-flex;
   flex-direction: column;
   justify-content: center;
+  -webkit-justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
   align-items: center;
 }
 
 #modal {
   z-index: 9999;
   width: 600px;
-  overflow: auto;
   background: #fff;
   border: 1px solid #ccc;
   border-radius: 2px;
@@ -34,30 +38,40 @@ h2 {
   margin: 0;
 }
 
-h3 {
-  color: #354374;
-}
-
-h4 {
-  font-weight: 500;
-}
 #content {
   padding: 1rem;
-  overflow: scroll;
-  height: 400px;
+  height: 390px;
 }
+
+#content h3 {
+  color: #354374;
+  margin: 0px auto;
+}
+
+#content h4 {
+  font-weight: 500;
+  margin: 5px auto 0px auto;
+}
+
+#content br {
+  line-height: 5px;
+  height: 5px;
+}
+
 #actions {
   border-top: 1px solid #ccc;
   background: #eee;
   padding: 0.5rem 1rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+  display: -webkit-flex;
   justify-content: center;
+  -webkit-justify-content: center;
+  align-items: center;
+  -webkit-align-items: center;
 }
 #toggle-button {
   border: 0;
   color: #fff;
+  font-weight: bolder;
   background: #354374;
   border-radius: 2px;
   padding: 0.5rem 1rem;

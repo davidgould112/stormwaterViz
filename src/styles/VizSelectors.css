@@ -71,7 +71,6 @@ input {
   justify-content: space-between;
   height: 36px;
   width: 240px;
-  /* margin-top: 5px; */
 }
 
 label {
@@ -102,7 +101,7 @@ option {
 
 #grid-btn-wrapper {
   width: 200px;
-  min-height: 40px;
+  min-height: 48px;
   margin: 15px 8% 0px 0px ;
 }
 
@@ -110,9 +109,19 @@ option {
   color: #ffffff;
   font-weight: bold;
   font-size: 11pt;
+  padding: 5px;
   background-color: #354374;
-  border: 1px solid #354374;
+  border: 3px solid #354374;
   border-radius: 3px;
   width: 100%;
   height: 100%;
+}
+
+#grid-data-btn:focus {
+  background-color: rgb(209, 214, 218);
+  color: #354374;
+}
+#grid-data-btn:hover {
+  background-color: rgb(209, 214, 218);
+  color: #354374;
 }
