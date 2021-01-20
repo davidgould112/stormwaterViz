@@ -44,8 +44,55 @@ class VizContainer extends React.Component<VizProps, VizState> {
         scale: 1, 
         chartOptions: {
             chart:{
-                height: 700,
-                width:  1200
+              height: 700,
+              width:  1200,
+            },
+            title: {
+              text: 'Projected Change v Duration: 25-year Event, 2050s', //changed by radio and menu
+              style: {
+                color: 'black',
+                fontSize: '20px'
+              }
+            },
+            yAxis: [{
+              title: {
+                text: '% Change from Historical (1981-2010)',
+                style: {
+                  color: 'black',
+                  fontSize: '20px'
+                }
+              },
+              labels: {
+                style: {
+                  color: 'black',
+                  fontSize: '16px'
+                }
+              },
+              allowDecimals: false
+            }],
+            xAxis: [{
+              categories: ['1', '2', '6', '24', '72'],
+              title: {
+                text: 'Duration (hours)', 
+                style: {
+                  color: 'black',
+                  fontSize: '20px'
+                }
+              },
+              labels: {
+                style: {
+                  color: 'black',
+                  fontSize: '16px'
+                }
+              },
+              allowDecimals: false
+            }],
+            plotOptions: {
+              scatter: {
+                marker: {
+                  radius: 7
+                }
+              }
             }
         }
       },
@@ -327,6 +374,9 @@ class VizContainer extends React.Component<VizProps, VizState> {
       newVizConfig.title.text = `Projected Change v Duration: ${this.state.returnInt}-year Event, ${this.state.decade}s`;
       newVizConfig.xAxis.title.text = "Duration (hours)";
       newVizConfig.xAxis.categories = [1, 2, 6, 24, 72];
+      newVizConfig.exporting.chartOptions.title.text = `Projected Change v Duration: ${this.state.returnInt}-year Event, ${this.state.decade}s`;
+      newVizConfig.exporting.chartOptions.xAxis[0].title.text = "Duration (hours)";
+      newVizConfig.exporting.chartOptions.xAxis[0].categories = [1, 2, 6, 24, 72];
       const chartData = this.filterPrecipData(this.state.gridJSON, this.state.decade, event.target.value, this.state.returnInt);
       newVizConfig.series[0].data = chartData["modelsArr"]
       newVizConfig.series[1].data = chartData["mediansArr"]
@@ -334,6 +384,9 @@ class VizContainer extends React.Component<VizProps, VizState> {
       newVizConfig.title.text = `Projected Change v Return Interval: ${this.state.duration}-hour Event, ${this.state.decade}s`;
       newVizConfig.xAxis.title.text = "Return Interval (years)";
       newVizConfig.xAxis.categories = [2, 5, 10, 25, 50, 100];
+      newVizConfig.exporting.chartOptions.title.text = `Projected Change v Return Interval: ${this.state.duration}-hour Event, ${this.state.decade}s`;
+      newVizConfig.exporting.chartOptions.xAxis[0].title.text = "Return Interval (years)";
+      newVizConfig.exporting.chartOptions.xAxis[0].categories = [2, 5, 10, 25, 50, 100];
       const chartData = this.filterPrecipData(this.state.gridJSON, this.state.decade, event.target.value, this.state.duration);
       newVizConfig.series[0].data = chartData["modelsArr"]
       newVizConfig.series[1].data = chartData["mediansArr"]
@@ -341,6 +394,9 @@ class VizContainer extends React.Component<VizProps, VizState> {
       newVizConfig.title.text = `Projected Change v Decade: ${this.state.returnInt}-year, ${this.state.duration}-hour Event`;
       newVizConfig.xAxis.title.text = "Decade";
       newVizConfig.xAxis.categories = ['2030s', '2040s', '2050s', '2060s', '2070s', '2080s'];
+      newVizConfig.exporting.chartOptions.title.text = `Projected Change v Decade: ${this.state.returnInt}-year, ${this.state.duration}-hour Event`;
+      newVizConfig.exporting.chartOptions.xAxis[0].title.text = "Decade";
+      newVizConfig.exporting.chartOptions.xAxis[0].categories = ['2030s', '2040s', '2050s', '2060s', '2070s', '2080s'];
       const chartData = this.filterDecadeData(this.state.gridJSON, this.state.duration, this.state.returnInt);
       newVizConfig.series[0].data = chartData["modelsArr"]
       newVizConfig.series[1].data = chartData["mediansArr"]
@@ -356,11 +412,13 @@ class VizContainer extends React.Component<VizProps, VizState> {
     let newVizConfig: any = this.state.vizConfig;
     if(this.state.xAxisParam === "duration") {
       newVizConfig.title.text = `Projected Change v Duration: ${event.target.value}-year Event, ${this.state.decade}s`;
+      newVizConfig.exporting.chartOptions.title.text = `Projected Change v Duration: ${event.target.value}-year Event, ${this.state.decade}s`;
       const chartData = this.filterPrecipData(this.state.gridJSON, this.state.decade, this.state.xAxisParam, Number(event.target.value));
       newVizConfig.series[0].data = chartData["modelsArr"]
       newVizConfig.series[1].data = chartData["mediansArr"]
     } else if (this.state.xAxisParam === "decade") {
       newVizConfig.title.text = `Projected Change v Decade: ${event.target.value}-year, ${this.state.duration}-hour Event`;
+      newVizConfig.exporting.chartOptions.title.text = `Projected Change v Decade: ${event.target.value}-year, ${this.state.duration}-hour Event`;
       const chartData = this.filterDecadeData(this.state.gridJSON, this.state.duration, Number(event.target.value))
       newVizConfig.series[0].data = chartData["modelsArr"]
       newVizConfig.series[1].data = chartData["mediansArr"]
@@ -376,11 +434,13 @@ class VizContainer extends React.Component<VizProps, VizState> {
     let newVizConfig: any = this.state.vizConfig;
     if (this.state.xAxisParam === "return-int") {
       newVizConfig.title.text = `Projected Change v Return Interval: ${event.target.value}-hour Event, ${this.state.decade}s`;
+      newVizConfig.exporting.chartOptions.title.text = `Projected Change v Return Interval: ${event.target.value}-hour Event, ${this.state.decade}s`;
       const chartData = this.filterPrecipData(this.state.gridJSON, this.state.decade, this.state.xAxisParam, Number(event.target.value));
       newVizConfig.series[0].data = chartData["modelsArr"]
       newVizConfig.series[1].data = chartData["mediansArr"]
     } else if (this.state.xAxisParam === "decade") {
       newVizConfig.title.text = `Projected Change v Decade: ${this.state.returnInt}-year, ${event.target.value}-hour Event`;
+      newVizConfig.exporting.chartOptions.title.text = `Projected Change v Decade: ${this.state.returnInt}-year, ${event.target.value}-hour Event`;
       const chartData = this.filterDecadeData(this.state.gridJSON, Number(event.target.value), this.state.returnInt)
       newVizConfig.series[0].data = chartData["modelsArr"]
       newVizConfig.series[1].data = chartData["mediansArr"]
@@ -396,11 +456,13 @@ class VizContainer extends React.Component<VizProps, VizState> {
     let newVizConfig: any = this.state.vizConfig;
     if(this.state.xAxisParam === "duration") {
       newVizConfig.title.text = `Projected Change v Duration: ${this.state.returnInt}-year Event, ${event.target.value}s`
+      newVizConfig.exporting.chartOptions.title.text = `Projected Change v Duration: ${this.state.returnInt}-year Event, ${event.target.value}s`
       const chartData = this.filterPrecipData(this.state.gridJSON, event.target.value, this.state.xAxisParam, this.state.returnInt)
       newVizConfig.series[0].data = chartData["modelsArr"]
       newVizConfig.series[1].data = chartData["mediansArr"]
     } else if (this.state.xAxisParam === "return-int") {
-      newVizConfig.title.text = `Projected Change v Return Interva: ${this.state.duration}-hour Event, ${event.target.value}s`
+      newVizConfig.title.text = `Projected Change v Return Interval: ${this.state.duration}-hour Event, ${event.target.value}s`
+      newVizConfig.exporting.chartOptions.title.text = `Projected Change v Return Interval: ${this.state.duration}-hour Event, ${event.target.value}s`
       const chartData = this.filterPrecipData(this.state.gridJSON, event.target.value, this.state.xAxisParam, this.state.duration)
       newVizConfig.series[0].data = chartData["modelsArr"]
       newVizConfig.series[1].data = chartData["mediansArr"]

@@ -21,7 +21,7 @@ const Modal: React.FC<Props> = ({ showModal, closeModal }) => {
             About the tool
           </h3>
           <h4>
-          The purpose of this tool is to visualize projected changes in heavy rainfall (or extreme precipitation) events across the Pacific Northwest. This tool provides extreme precipitation projections as a function of decade, duration, and frequency (or return interval). Users can customize the tool to select various precipitation frequencies and durations to ensure the data shown in the tool is relevant to your specific needs. The resulting graphics can be downloaded for later use and the data for each grid cell can also be downloaded in an excel-readable spreadsheet
+            The purpose of this tool is to visualize projected changes in heavy rainfall events across the Pacific Northwest. This tool provides extreme precipitation projections as a function of decade, duration, and return interval (frequency). You can customize the tool to select various precipitation frequencies and durations to ensure the data shown in the tool is relevant to your specific needs. The tool lets you download graphics for later use and you can also download the data for each grid cell in an excel-readable format.
           </h4>
           <br/>
           <h3>
