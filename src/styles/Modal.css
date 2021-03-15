@@ -1,8 +1,7 @@
 #modal-screen {
   height: 120vh;
   width: 120vw;
-  background-color: #9ca2b8;
-  opacity: .9;
+  background-color: rgb(156, 162, 184, .8);
   margin: -100px;
   z-index: 9995;
   position: fixed;
@@ -28,7 +27,6 @@
     -2rem 2rem 2rem rgba(black, 0.2);
   filter: blur(0);
   transform: scale(1);  
-  opacity: 1 !important;
   visibility: visible;
 }
 

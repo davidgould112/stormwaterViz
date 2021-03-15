@@ -1,11 +1,5 @@
 import React from 'react';
 import '../styles/App.css';
-// {/* <svg 
-//   width="20px"
-//   height="20px"
-//   viewBox="0 0 38 34"
-//   xmlns="http://www.w3.org/2000/svg"
-//   xmlnsXlink="http://www.w3.org/1999/xlink"> */}
 
 const ReturnArrow: React.FC = () => {
   return (
@@ -29,6 +23,5 @@ const ReturnArrow: React.FC = () => {
     </div>
   )
 }
-
 
 export default ReturnArrow;

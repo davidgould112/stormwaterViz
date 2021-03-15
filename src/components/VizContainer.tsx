@@ -37,7 +37,11 @@ class VizContainer extends React.Component<VizProps, VizState> {
         spacingBottom: 40,
       },
       credits: {
-        enabled: false,
+        position: {
+            align: 'right',
+            x: -15
+        },
+        enabled: true
       },
       exporting: {
         enabled: false,
@@ -210,7 +214,7 @@ class VizContainer extends React.Component<VizProps, VizState> {
   }
 
   fetchJSON(x: number, y: number) {
-    fetch('https://data.cig.uw.edu/picea/stormwater/viz_data/grid_x' + x + '_y' + y + '.json',
+    fetch('https://data.cig.uw.edu/picea/stormwater/pub/viz_data/grid_x' + x + '_y' + y + '.json',
       { headers : { 
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -268,7 +272,7 @@ class VizContainer extends React.Component<VizProps, VizState> {
         for (const durKey in gcmDataObj) {
           const durDataObj: any = gcmDataObj[durKey];
           const returnIntKey: string = `${filterValue}-yr`
-          const projectionVal: number = Number(durDataObj[returnIntKey].toFixed(2));
+          const projectionVal: number = Number(durDataObj[returnIntKey].toFixed(0));
           const durStr: string = durKey.substring(0, durKey.length-3);
           
           const chartPoint : any = {
@@ -293,7 +297,7 @@ class VizContainer extends React.Component<VizProps, VizState> {
         const durKey: string = `${filterValue}-hr`;
         const durDataObj: any = gcmDataObj[durKey];
         for (const returnIntKey in durDataObj) {
-          const projectionVal: number = Number(durDataObj[returnIntKey].toFixed(2));
+          const projectionVal: number = Number(durDataObj[returnIntKey].toFixed(0));
           const returnIntStr: string = returnIntKey.substring(0, returnIntKey.length-3);
           
           const chartPoint : any = {
@@ -344,7 +348,7 @@ class VizContainer extends React.Component<VizProps, VizState> {
       const decadeData = data[decadeStrMap[i][1]] 
 
       for (let key in decadeData) {
-        const projectionVal: number = Number(decadeData[key][durKey][retIntKey].toFixed(2));
+        const projectionVal: number = Number(decadeData[key][durKey][retIntKey].toFixed(0));
     
         const chartPoint : any = {
           x: i,
