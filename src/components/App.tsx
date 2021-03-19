@@ -75,7 +75,7 @@ class App extends React.Component<any, AppState> {
             (<VizContainer selectedGridCell={this.state.selectedGridCell} />)
           }
           <div id="app-footer"> 
-              <a id="link" href="https://cig.uw.edu/our-work/applied-research/heavy-precip-and-stormwater/">
+              <a id="link" href="https://cig.uw.edu/projects/heavy-precipitation-projections-for-use-in-stormwater-planning/">
                 <div id="footer-text">
                   Return to Project Page 
                 </div>
