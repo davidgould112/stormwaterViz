@@ -47,7 +47,7 @@ const VizSelectors: React.FC<SelectorProps> = ({duration,
             <input type="radio" value="duration" name="xParam" checked={xAxisParam === "duration"} onChange={xAxisToggle}/> 
             <span className="radio-label">Duration</span>
           </label>
-          <div className="radio-description">Duration is how long a precipitation events lasts (e.g. 1-hour, 6-hours, 24-hours)</div>
+          <div className="radio-description">Duration is how long a precipitation event lasts (e.g. 1-hour, 6-hours, 24-hours)</div>
         </div>
         <div className="radio-container">
           <label className="radio-row">
