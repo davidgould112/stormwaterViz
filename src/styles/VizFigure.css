@@ -15,13 +15,19 @@
 
 #chart-info {
   margin: 2px 0% 0px 0px;
-  font-size: 15px;
+  font-size: 1em;
   font-style: italic;
   font-weight: bold;
-  color: rgb(118, 140, 159);
+  color: rgb(133, 133, 133);
   align-self: flex-end;
 }
-
+#citation {
+  margin: 1em 2em;
+  font-size: .75em;
+  color: rgb(133, 133, 133);
+  line-height: 1.2em;
+  max-width: 700px;
+}
 #btn-row {
   margin: 2% 5% 0% 0%;
   align-self: flex-end;
@@ -29,7 +35,6 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  height: 80px;
   width: 320px;
 } 
 

@@ -69,6 +69,12 @@ const VizFigure: React.FC<VizFigProps> = ({ vizConfig,
       <div id="chart-info">
         Click and drag over points to zoom. 
       </div>
+      <div id="citation">
+        Recommended Citation: Morgan, H., Mauger, G., Won, J., Gould, D. 2021 &nbsp;
+        <i>Projected Changes in Extreme Precipitation Web Tool.</i> &nbsp;
+        University of Washington Climate Impacts Group. &nbsp;
+        <u>https:/doi.org/10.6069/79CV-4233</u>
+      </div>
       <div id="btn-row">
         <button onClick={downloadImage} id="fig-btn">
           Download Figure

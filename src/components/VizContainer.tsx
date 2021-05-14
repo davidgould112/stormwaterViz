@@ -39,9 +39,11 @@ class VizContainer extends React.Component<VizProps, VizState> {
       credits: {
         position: {
             align: 'right',
-            x: -15
+            y: -15,
+            x:-15
         },
-        enabled: true
+        enabled: true,
+        text: "Figure Credit: University of Washington Climate Impacts Group <br/> Highcharts.com"
       },
       exporting: {
         enabled: false,
@@ -149,7 +151,7 @@ class VizContainer extends React.Component<VizProps, VizState> {
         align: 'left',
         verticalAlign: 'bottom',
         x: 40,
-        y: 25,
+        y: 30,
         floating: true,
         backgroundColor: '#FFFFFF',
         borderWidth: 1,
