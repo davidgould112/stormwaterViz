@@ -42,31 +42,33 @@ const VizSelectors: React.FC<SelectorProps> = ({duration,
     <div id="viz-select">
       <div id="radios">
         <div className="radio-container">
-          <div id="radio-header">Select x-axis</div>
+          <h3 style={{color: "#757575 "}}> Customize the graph </h3>
+          <div id="radio-header">1. Select x-axis</div>
           <label className="radio-row">
             <input type="radio" value="duration" name="xParam" checked={xAxisParam === "duration"} onChange={xAxisToggle}/> 
             <span className="radio-label">Duration</span>
           </label>
-          <div className="radio-description">Duration is how long a precipitation event lasts (e.g. 1-hour, 6-hours, 24-hours)</div>
+          <div className="radio-description">How long a precipitation event lasts (e.g., 1 hour, 6 hours, 24 hours).</div>
         </div>
         <div className="radio-container">
           <label className="radio-row">
             <input type="radio" value="return-int" name="xParam" checked={xAxisParam === "return-int"} onChange={xAxisToggle}/> 
             <span className="radio-label">Return Interval</span>
           </label>
-          <div className="radio-description">How common or rare storms of different magnitudes are. A larger return period implies a rarer and larger event.</div>
+          <div className="radio-description">How common or rare a precipitation event of a specific duration is. A larger return interval implies a rarer and larger event.</div>
         </div>
-        <div className="radio-container">
+        <div className="radio-container"> 
           <label className="radio-row">
             <input type="radio" value="decade" name="xParam" checked={xAxisParam === "decade"} onChange={xAxisToggle}/> 
             <span className="radio-label">Decade</span>
           </label>
-          <div className="radio-description">View projected changes over time for a given event duration and return interval</div>
+          <div className="radio-description">When (what future time period) a precipitation event would occur (2030s-2080s). Each decade represents a 30-year average (e.g., ‘2030s’ = 2020-2049). </div>
         </div>
       </div> 
       { (() => {
         if (xAxisParam === 'decade') {
           return <div id="selectors">
+            <div id="parameter-header">2. Specify other parameters</div>
             <div className="select-container">
               <label>
                 Return Interval
@@ -101,6 +103,7 @@ const VizSelectors: React.FC<SelectorProps> = ({duration,
           </div>
         } else if (xAxisParam === "return-int") {
           return <div id="selectors">
+            <div id="parameter-header">2. Specify other parameters</div>
             <div className="select-container">
               <label>
                 Duration
@@ -135,6 +138,7 @@ const VizSelectors: React.FC<SelectorProps> = ({duration,
           </div>
         } else if (xAxisParam === "duration") {
           return <div id="selectors">
+            <div id="parameter-header">2. Specify other parameters</div>
             <div className="select-container">
               <label>
                 Return Interval
