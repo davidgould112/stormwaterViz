@@ -62,7 +62,7 @@ const VizSelectors: React.FC<SelectorProps> = ({duration,
             <input type="radio" value="decade" name="xParam" checked={xAxisParam === "decade"} onChange={xAxisToggle}/> 
             <span className="radio-label">Decade</span>
           </label>
-          <div className="radio-description">When (what future time period) a precipitation event would occur (2030s-2080s). Each decade represents a 30-year average (e.g., ‘2030s’ = 2020-2049). </div>
+          <div className="radio-description">Change for each future decade. Each decade represents a 30-year average (e.g., ‘2030s’ = 2020-2049). </div>
         </div>
       </div> 
       { (() => {

@@ -59,6 +59,7 @@ input {
   margin-left: 40px;
   width: 200px;
 }
+
 #parameter-header {
   color: #354374;
   width: 88%;
@@ -67,6 +68,13 @@ input {
   padding-left: 28px;
   line-height: 16px;
 }
+
+@media only screen and (max-width: 1250px) {
+  #parameter-header {
+    padding-left: 0em;
+  }
+}
+
 .select-container {
   display: flex;
   flex-direction: column;
