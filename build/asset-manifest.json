@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/picea/stormwater/pub/viz/static/css/main.233bf250.chunk.css",
+    "main.js": "/picea/stormwater/pub/viz/static/js/main.ed10c585.chunk.js",
+    "main.js.map": "/picea/stormwater/pub/viz/static/js/main.ed10c585.chunk.js.map",
+    "runtime-main.js": "/picea/stormwater/pub/viz/static/js/runtime-main.0a9014cf.js",
+    "runtime-main.js.map": "/picea/stormwater/pub/viz/static/js/runtime-main.0a9014cf.js.map",
+    "static/js/2.f29e449f.chunk.js": "/picea/stormwater/pub/viz/static/js/2.f29e449f.chunk.js",
+    "static/js/2.f29e449f.chunk.js.map": "/picea/stormwater/pub/viz/static/js/2.f29e449f.chunk.js.map",
+    "index.html": "/picea/stormwater/pub/viz/index.html",
+    "precache-manifest.7ac690c988fc25011a774708eddba971.js": "/picea/stormwater/pub/viz/precache-manifest.7ac690c988fc25011a774708eddba971.js",
+    "service-worker.js": "/picea/stormwater/pub/viz/service-worker.js",
+    "static/css/main.233bf250.chunk.css.map": "/picea/stormwater/pub/viz/static/css/main.233bf250.chunk.css.map",
+    "static/js/2.f29e449f.chunk.js.LICENSE.txt": "/picea/stormwater/pub/viz/static/js/2.f29e449f.chunk.js.LICENSE.txt",
+    "static/media/Nav.css": "/picea/stormwater/pub/viz/static/media/cig-logo.1afa1e20.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0a9014cf.js",
+    "static/js/2.f29e449f.chunk.js",
+    "static/css/main.233bf250.chunk.css",
+    "static/js/main.ed10c585.chunk.js"
+  ]
+}
