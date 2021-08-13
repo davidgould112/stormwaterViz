@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/static/css/main.df10a3bb.chunk.css",
+    "main.js": "/static/js/main.be1ae22b.chunk.js",
+    "main.js.map": "/static/js/main.be1ae22b.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.4faf4e71.js",
+    "runtime-main.js.map": "/static/js/runtime-main.4faf4e71.js.map",
+    "static/js/2.f29e449f.chunk.js": "/static/js/2.f29e449f.chunk.js",
+    "static/js/2.f29e449f.chunk.js.map": "/static/js/2.f29e449f.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.107a53f3044eb81c50e62eb808734b6a.js": "/precache-manifest.107a53f3044eb81c50e62eb808734b6a.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.df10a3bb.chunk.css.map": "/static/css/main.df10a3bb.chunk.css.map",
+    "static/js/2.f29e449f.chunk.js.LICENSE.txt": "/static/js/2.f29e449f.chunk.js.LICENSE.txt",
+    "static/media/Nav.css": "/static/media/cig-logo.1afa1e20.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4faf4e71.js",
+    "static/js/2.f29e449f.chunk.js",
+    "static/css/main.df10a3bb.chunk.css",
+    "static/js/main.be1ae22b.chunk.js"
+  ]
+}
